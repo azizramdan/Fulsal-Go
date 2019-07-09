@@ -79,7 +79,6 @@ public class LoginViewModel extends ViewModel {
                         loginResult.setValue(new LoginResult("Login failed"));
                     }
                 });
-
     }
 
     public void loginDataChanged(String username, String password) {
@@ -107,12 +106,5 @@ public class LoginViewModel extends ViewModel {
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() >= 5;
-    }
-
-    private void putJson(Context context, JSONObject jsonObject) {
-        SharedPreferences sharedPref = context.getSharedPreferences("user", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("data", jsonObject.toString());
-        editor.commit();
     }
 }
