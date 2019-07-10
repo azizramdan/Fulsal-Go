@@ -3,8 +3,6 @@ package com.example.futsalgo.ui.login;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -18,10 +16,12 @@ import com.example.futsalgo.data.Result;
 import com.example.futsalgo.data.model.LoggedInUser;
 import com.example.futsalgo.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
+import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class LoginViewModel extends ViewModel {
@@ -41,9 +41,9 @@ public class LoginViewModel extends ViewModel {
     LiveData<LoginResult> getLoginResult() {
         return loginResult;
     }
-    public static final Integer id = 0;
-    public static final String nama = "";
-    public static final String email = "";
+    public static Integer id = 0;
+    public static String nama = "";
+    public static String email = "";
 
 
     public void login(String username, String password) {
@@ -56,7 +56,8 @@ public class LoginViewModel extends ViewModel {
 //        } else {
 //            loginResult.setValue(new LoginResult(R.string.login_failed));
 //        }
-        AndroidNetworking.post(Konfigurasi.LOGIN)
+        AndroidNetworking.post(Konfigurasi.USER)
+                .addBodyParameter("method", "login")
                 .addBodyParameter("email", username)
                 .addBodyParameter("password", password)
                 .setPriority(Priority.MEDIUM)
@@ -67,16 +68,27 @@ public class LoginViewModel extends ViewModel {
 //                        Log.d(TAG, "on response" + response.optString("status"));
                         if(response.opt("status") == TRUE) {
 //                            id = response.opt("data").toString();
-                            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-                            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+                            try {
+                                JSONArray data = response.getJSONArray("data");
+                                for (int i = 0; i < data.length(); i++) {
+                                    JSONObject object = data.getJSONObject(i);
+                                    id = object.getInt("id");
+                                    nama = object.getString("nama");
+                                    email = object.getString("email");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.d(TAG, "on response" + e);
+                            }
+                            loginResult.setValue(new LoginResult(TRUE, ""));
                         } else {
-                            loginResult.setValue(new LoginResult(response.opt("msg").toString()));
+                            loginResult.setValue(new LoginResult(FALSE, response.opt("msg").toString()));
                         }
                     }
                     @Override
                     public void onError(ANError error) {
                         Log.d(TAG, "onError: Failed" + error); //untuk log pada onerror
-                        loginResult.setValue(new LoginResult("Login failed"));
+                        loginResult.setValue(new LoginResult(FALSE,"Login failed"));
                     }
                 });
     }

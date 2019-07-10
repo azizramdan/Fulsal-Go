@@ -9,25 +9,17 @@ import com.google.gson.JsonObject;
  */
 class LoginResult {
     @Nullable
-    private LoggedInUserView success;
-    @Nullable
+    private boolean status;
     private String error;
 
-    LoginResult(@Nullable String error) {
+    LoginResult(@Nullable boolean status, String error) {
+        this.status = status;
         this.error = error;
     }
-
-    LoginResult(@Nullable LoggedInUserView success) {
-        this.success = success;
-    }
-
-    @Nullable
-    LoggedInUserView getSuccess() {
-        return success;
-    }
-
-    @Nullable
-    String getError() {
+    String getError(){
         return error;
+    }
+    Boolean getStatus() {
+        return status;
     }
 }

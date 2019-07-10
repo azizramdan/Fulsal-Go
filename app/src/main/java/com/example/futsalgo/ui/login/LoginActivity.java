@@ -66,12 +66,10 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    //updateUiWithUser(loginResult.getSuccess());
+                if(loginResult.getStatus()) {
                     launchHomeScreen();
+                } else {
+                    showLoginFailed(loginResult.getError());
                 }
                 setResult(Activity.RESULT_OK);
 
@@ -131,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void showLoginFailed( String errorString) {
+    private void showLoginFailed(String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 }
