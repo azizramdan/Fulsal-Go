@@ -1,21 +1,32 @@
 package com.example.futsalgo.data;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.futsalgo.DetailLapangan;
 import com.example.futsalgo.R;
 import com.example.futsalgo.data.model.Lapangan;
 
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
+
 
 public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHolder> {
     private List<Lapangan> list;
+    Fragment fragment = null;
 
     public LapanganAdapter(List<Lapangan> list) {
         this.list = list;
@@ -39,7 +50,25 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHo
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "berhasil mang di klik " + lapangan.getNama());
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", lapangan.getId());
+                bundle.putString("nama", lapangan.getNama());
+                bundle.putString("foto", lapangan.getFoto());
+                bundle.putString("harga", lapangan.getHarga());
+                bundle.putString("telp", lapangan.getTelp());
+                bundle.putString("alamat", lapangan.getAlamat());
+                bundle.putString("latitude", lapangan.getLatitude());
+                bundle.putString("longitude", lapangan.getLongitude());
+                fragment = new DetailLapangan();
+                fragment.setArguments(bundle);
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_marginVertical="@dimen/activity_vertical_margin"
+    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/svContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/foto"
+                android:layout_width="286dp"
+                android:layout_height="247dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+            <TextView
+                android:id="@+id/nama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Lapangan"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/harga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Harga"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/telp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Telpon"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/alamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Alamat"
+                android:textSize="18sp" />
+
+            <fragment
+                android:id="@+id/map"
+                class="com.example.futsalgo.MySupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_height="300dp"/>
+
+            <Button
+                android:id="@+id/lanjut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lanjut Pemesanan" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
