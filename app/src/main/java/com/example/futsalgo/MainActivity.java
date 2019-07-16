@@ -2,11 +2,11 @@ package com.example.futsalgo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,10 +17,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "MainActivity";
+
+    Fragment fragment = null;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +31,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,9 +47,22 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-//        SharedPreferences user = this.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+        SharedPreferences user = this.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
 //        int highScore = user.getInt("id", 0);
 //        Log.d(TAG, "data dari user " + highScore);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView nama = (TextView) headerView.findViewById(R.id.nama);
+        TextView email = (TextView) headerView.findViewById(R.id.email);
+
+        nama.setText(user.getString("nama", "Nama Lengkap"));
+        email.setText(user.getString("email", "E-Mail"));
+
+        // tampilan default awal ketika aplikasii dijalankan
+        if (savedInstanceState == null) {
+            fragment = new MenuBeranda();
+            callFragment(fragment);
+        }
 
     }
 
@@ -88,22 +104,25 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.beranda) {
+            fragment = new MenuBeranda();
+        } else if (id == R.id.pesanan_saya) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.edit_akun) {
 
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.logout) {
 
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    // untuk mengganti isi kontainer menu yang dipiih
+    private void callFragment(Fragment fragment) {
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .commit();
     }
 }

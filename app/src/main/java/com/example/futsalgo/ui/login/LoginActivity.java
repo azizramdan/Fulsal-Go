@@ -27,6 +27,8 @@ import com.example.futsalgo.R;
 import com.example.futsalgo.ui.login.LoginViewModel;
 import com.example.futsalgo.ui.login.LoginViewModelFactory;
 
+import static java.lang.Boolean.TRUE;
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
+
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
@@ -53,7 +56,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
-                loginButton.setEnabled(loginFormState.isDataValid());
+//                loginButton.setEnabled(loginFormState.isDataValid());
+                loginButton.setEnabled(TRUE);
+
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
@@ -123,6 +128,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                usernameEditText.setText("aziz@email.com");
+                passwordEditText.setText("admin");
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
