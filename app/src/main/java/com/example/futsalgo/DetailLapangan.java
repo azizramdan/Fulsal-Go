@@ -1,10 +1,15 @@
 package com.example.futsalgo;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,6 +24,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Calendar;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class DetailLapangan extends Fragment implements OnMapReadyCallback {
     public DetailLapangan() {
@@ -40,6 +49,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
         TextView harga = view.findViewById(R.id.harga);
         TextView telp = view.findViewById(R.id.telp);
         TextView alamat = view.findViewById(R.id.alamat);
+        Button lanjut_pesan = view.findViewById(R.id.lanjut_pesan);
 
         Bundle bundle = this.getArguments();
 
@@ -87,7 +97,19 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
             });
         }
 
-
+        lanjut_pesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Fragment fragment = new Pemesanan();
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//                activity.getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.frame_container, fragment)
+//                        .addToBackStack(null)
+//                        .commit();
+                lanjutPesan(v);
+            }
+        });
 
         getActivity().setTitle("Detail Lapangan");
 
@@ -99,5 +121,37 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().position(myloc)
                 .title(title));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 20));
+    }
+
+    public void lanjutPesan(View view) {
+        final View v = view;
+        final Calendar c = Calendar.getInstance();
+        Integer mYear = c.get(Calendar.YEAR);
+        Integer mMonth = c.get(Calendar.MONTH);
+        Integer mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        String date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        Log.d(TAG, "berhasil mang date " + date);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("waktu_pilih", date);
+
+                        Fragment fragment = new Pemesanan();
+                        fragment.setArguments(bundle);
+                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                        activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 }
