@@ -44,11 +44,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        SharedPreferences user = this.getSharedPreferences("user", Context.MODE_PRIVATE);
-        String data = user.getString("data", "error");
-
-        Log.d(TAG, "on response" + data);
-
+//        SharedPreferences user = this.getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+//        int highScore = user.getInt("id", 0);
+//        Log.d(TAG, "data dari user " + highScore);
 
     }
 

@@ -3,6 +3,8 @@ package com.example.futsalgo.ui.login;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -44,18 +46,10 @@ public class LoginViewModel extends ViewModel {
     public static Integer id = 0;
     public static String nama = "";
     public static String email = "";
-
+    public static String telp = "";
 
     public void login(String username, String password) {
-        // can be launched in a separate asynchronous job
-        final Result<LoggedInUser> result = loginRepository.login(username, password);
-//
-//        if (result instanceof Result.Success) {
-//            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-//            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-//        } else {
-//            loginResult.setValue(new LoginResult(R.string.login_failed));
-//        }
+//        final Result<LoggedInUser> result = loginRepository.login(username, password);
         AndroidNetworking.post(Konfigurasi.USER)
                 .addBodyParameter("method", "login")
                 .addBodyParameter("email", username)
@@ -65,29 +59,28 @@ public class LoginViewModel extends ViewModel {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        Log.d(TAG, "on response" + response.optString("status"));
                         if(response.opt("status") == TRUE) {
-//                            id = response.opt("data").toString();
                             try {
-                                JSONArray data = response.getJSONArray("data");
-                                for (int i = 0; i < data.length(); i++) {
-                                    JSONObject object = data.getJSONObject(i);
-                                    id = object.getInt("id");
-                                    nama = object.getString("nama");
-                                    email = object.getString("email");
-                                }
+                                JSONObject data = response.getJSONObject("data");
+                                loginResult.setValue(
+                                        new LoginResult(
+                                                TRUE,
+                                                "",
+                                                data.optInt("id"),
+                                                data.optString("nama"),
+                                                data.optString("email"),
+                                                data.optString("telp")));
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Log.d(TAG, "on response" + e);
+//                                Log.d(TAG, "on response" + e);
                             }
-                            loginResult.setValue(new LoginResult(TRUE, ""));
                         } else {
                             loginResult.setValue(new LoginResult(FALSE, response.opt("msg").toString()));
                         }
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d(TAG, "onError: Failed" + error); //untuk log pada onerror
+//                        Log.d(TAG, "onError: Failed" + error);
                         loginResult.setValue(new LoginResult(FALSE,"Login failed"));
                     }
                 });
@@ -107,12 +100,14 @@ public class LoginViewModel extends ViewModel {
     private boolean isUserNameValid(String username) {
         if (username == null) {
             return false;
-        }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
         } else {
-            return !username.trim().isEmpty();
+            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
         }
+//        if (!username.contains("@")) {
+//            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+//        } else {
+//            return !username.trim().isEmpty();
+//        }
     }
 
     // A placeholder password validation check

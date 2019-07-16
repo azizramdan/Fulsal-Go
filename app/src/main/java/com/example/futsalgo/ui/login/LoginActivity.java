@@ -3,7 +3,9 @@ package com.example.futsalgo.ui.login;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -28,6 +30,7 @@ import com.example.futsalgo.ui.login.LoginViewModelFactory;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    SharedPreferences sharedpreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         AndroidNetworking.initialize(getApplicationContext());
+        sharedpreferences = getSharedPreferences("dataUser", Context.MODE_PRIVATE);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -67,6 +71,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 loadingProgressBar.setVisibility(View.GONE);
                 if(loginResult.getStatus()) {
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putInt("id", loginResult.getId());
+                    editor.putString("nama", loginResult.getNama());
+                    editor.putString("email", loginResult.getEmail());
+                    editor.putString("telp", loginResult.getTelp());
+                    editor.commit();
+
                     launchHomeScreen();
                 } else {
                     showLoginFailed(loginResult.getError());
