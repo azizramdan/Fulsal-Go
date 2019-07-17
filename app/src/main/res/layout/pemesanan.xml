@@ -138,11 +138,10 @@
                 android:id="@+id/metode_bayar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:textSize="24sp" />
+                android:layout_marginBottom="20dp" />
 
             <Button
-                android:id="@+id/lanjut_pemesanan"
+                android:id="@+id/detail_pesanan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lanjut Pemesanan" />

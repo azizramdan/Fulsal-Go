@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
-                loginButton.setEnabled(loginFormState.isDataValid());
-//                loginButton.setEnabled(TRUE);
+//                loginButton.setEnabled(loginFormState.isDataValid());
+                loginButton.setEnabled(TRUE);
 
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
@@ -128,8 +128,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                usernameEditText.setText("aziz@email.com");
-//                passwordEditText.setText("admin");
+                usernameEditText.setText("aziz@email.com");
+                passwordEditText.setText("admin");
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());

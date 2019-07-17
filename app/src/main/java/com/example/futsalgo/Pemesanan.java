@@ -1,14 +1,18 @@
 package com.example.futsalgo;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.LinearLayout;
@@ -27,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.support.constraint.Constraints.TAG;
@@ -39,7 +44,8 @@ public class Pemesanan extends Fragment {
 
     LinearLayout view;
     CheckBox jam7, jam8, jam9, jam10, jam11, jam12, jam13, jam14, jam15, jam16, jam17, jam18, jam19, jam20, jam21, jam22;
-    String waktu_pilih;
+    String waktu_pilih, metode_bayar, harga_lapangan;
+    Integer id_lapangan, id_user;
     Spinner spinner;
 
     @Override
@@ -50,7 +56,11 @@ public class Pemesanan extends Fragment {
         AndroidNetworking.initialize(getActivity());
         getActivity().setTitle("Pilih Jam & Metode Bayar");
         Bundle bundle = this.getArguments();
+        id_lapangan = bundle.getInt("id_lapangan");
+        harga_lapangan = bundle.getString("harga_lapangan");
         waktu_pilih = bundle.getString("waktu_pilih");
+        SharedPreferences user = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+        id_user = user.getInt("id", 0);
 
         jam7 = view.findViewById(R.id.jam7);
         jam8 = view.findViewById(R.id.jam8);
@@ -81,6 +91,7 @@ public class Pemesanan extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
 //                String item = parent.getItemAtPosition(position).toString();
 //                Log.d(TAG, item);
+                metode_bayar = parent.getItemAtPosition(position).toString();
                 Log.d(TAG, "berhasil mang spinner " + parent.getItemAtPosition(position));
 
             }
@@ -92,6 +103,13 @@ public class Pemesanan extends Fragment {
             }
         });
 
+        Button detail_pesan = view.findViewById(R.id.detail_pesanan);
+        detail_pesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailPesan(v);
+            }
+        });
         getTime();
         return view;
     }
@@ -185,5 +203,83 @@ public class Pemesanan extends Fragment {
                         progressDialog.dismiss();
                     }
                 });
+    }
+    private void detailPesan(View v) {
+        ArrayList<String> data = new ArrayList<String>();
+        if(jam7.isChecked()) {
+            data.add("07:00:00");
+        }
+        if(jam8.isChecked()) {
+            data.add("08:00:00");
+        }
+        if(jam9.isChecked()) {
+            data.add("09:00:00");
+        }
+        if(jam10.isChecked()) {
+            data.add("10:00:00");
+        }
+        if(jam11.isChecked()) {
+            data.add("11:00:00");
+        }
+        if(jam12.isChecked()) {
+            data.add("12:00:00");
+        }
+        if(jam13.isChecked()) {
+            data.add("13:00:00");
+        }
+        if(jam14.isChecked()) {
+            data.add("14:00:00");
+        }
+        if(jam15.isChecked()) {
+            data.add("15:00:00");
+        }
+        if(jam16.isChecked()) {
+            data.add("16:00:00");
+        }
+        if(jam17.isChecked()) {
+            data.add("17:00:00");
+        }
+        if(jam18.isChecked()) {
+            data.add("18:00:00");
+        }
+        if(jam19.isChecked()) {
+            data.add("19:00:00");
+        }
+        if(jam20.isChecked()) {
+            data.add("20:00:00");
+        }
+        if(jam21.isChecked()) {
+            data.add("21:00:00");
+        }
+        if(jam22.isChecked()) {
+            data.add("22:00:00");
+        }
+
+//                JSONObject jsonObject = new JSONObject();
+//                try {
+//                    jsonObject.put("id_user", id_user);
+//                    jsonObject.put("id_lapangan", id_lapangan);
+//                    jsonObject.put("waktu_pilih_tanggal", waktu_pilih);
+//                    jsonObject.put("waktu_pilih_jam", data);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                Log.d(TAG, "berhasil mang di klik " + jsonObject);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_lapangan", id_lapangan);
+        bundle.putString("waktu_pilih_tanggal", waktu_pilih);
+        bundle.putString("harga_lapangan", harga_lapangan);
+        bundle.putString("metode_bayar", metode_bayar);
+        bundle.putStringArrayList("waktu_pilih_jam", data);
+
+        Fragment fragment = new Pemesanan();
+        fragment.setArguments(bundle);
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
