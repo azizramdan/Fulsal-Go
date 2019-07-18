@@ -142,6 +142,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         String date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        date = Konfigurasi.parseDate(date, "yyyy-M-d", "yyyy-MM-dd");
                         Log.d(TAG, "berhasil mang date " + date);
 
                         Bundle bundle = new Bundle();
@@ -160,6 +161,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
                         .commit();
                     }
                 }, mYear, mMonth, mDay);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 }
