@@ -17,6 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih Jam"
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp" />
+
             <CheckBox
                 android:id="@+id/jam7"
                 android:layout_width="match_parent"
@@ -131,8 +138,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="22.00 - 23.00"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="25dp"
                 android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pilih metode pembayaran"
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/metode_bayar"

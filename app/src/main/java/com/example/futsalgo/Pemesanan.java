@@ -44,7 +44,7 @@ public class Pemesanan extends Fragment {
 
     LinearLayout view;
     CheckBox jam7, jam8, jam9, jam10, jam11, jam12, jam13, jam14, jam15, jam16, jam17, jam18, jam19, jam20, jam21, jam22;
-    String waktu_pilih, metode_bayar, harga_lapangan;
+    String nama_lapangan, waktu_pilih, metode_bayar, harga_lapangan;
     Integer id_lapangan, id_user;
     Spinner spinner;
 
@@ -57,6 +57,7 @@ public class Pemesanan extends Fragment {
         getActivity().setTitle("Pilih Jam & Metode Bayar");
         Bundle bundle = this.getArguments();
         id_lapangan = bundle.getInt("id_lapangan");
+        nama_lapangan = bundle.getString("nama_lapangan");
         harga_lapangan = bundle.getString("harga_lapangan");
         waktu_pilih = bundle.getString("waktu_pilih");
         SharedPreferences user = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);
@@ -205,54 +206,72 @@ public class Pemesanan extends Fragment {
                 });
     }
     private void detailPesan(View v) {
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> dataDB = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
+
         if(jam7.isChecked()) {
-            data.add("07:00:00");
+            data.add(jam7.getText().toString());
+            dataDB.add("07:00:00");
         }
         if(jam8.isChecked()) {
-            data.add("08:00:00");
+            data.add(jam8.getText().toString());
+            dataDB.add("08:00:00");
         }
         if(jam9.isChecked()) {
-            data.add("09:00:00");
+            data.add(jam9.getText().toString());
+            dataDB.add("09:00:00");
         }
         if(jam10.isChecked()) {
-            data.add("10:00:00");
+            data.add(jam10.getText().toString());
+            dataDB.add("10:00:00");
         }
         if(jam11.isChecked()) {
-            data.add("11:00:00");
+            data.add(jam11.getText().toString());
+            dataDB.add("11:00:00");
         }
         if(jam12.isChecked()) {
-            data.add("12:00:00");
+            data.add(jam12.getText().toString());
+            dataDB.add("12:00:00");
         }
         if(jam13.isChecked()) {
-            data.add("13:00:00");
+            data.add(jam13.getText().toString());
+            dataDB.add("13:00:00");
         }
         if(jam14.isChecked()) {
-            data.add("14:00:00");
+            data.add(jam14.getText().toString());
+            dataDB.add("14:00:00");
         }
         if(jam15.isChecked()) {
-            data.add("15:00:00");
+            data.add(jam15.getText().toString());
+            dataDB.add("15:00:00");
         }
         if(jam16.isChecked()) {
-            data.add("16:00:00");
+            data.add(jam16.getText().toString());
+            dataDB.add("16:00:00");
         }
         if(jam17.isChecked()) {
-            data.add("17:00:00");
+            data.add(jam17.getText().toString());
+            dataDB.add("17:00:00");
         }
         if(jam18.isChecked()) {
-            data.add("18:00:00");
+            data.add(jam18.getText().toString());
+            dataDB.add("18:00:00");
         }
         if(jam19.isChecked()) {
-            data.add("19:00:00");
+            data.add(jam19.getText().toString());
+            dataDB.add("19:00:00");
         }
         if(jam20.isChecked()) {
-            data.add("20:00:00");
+            data.add(jam20.getText().toString());
+            dataDB.add("20:00:00");
         }
         if(jam21.isChecked()) {
-            data.add("21:00:00");
+            data.add(jam21.getText().toString());
+            dataDB.add("21:00:00");
         }
         if(jam22.isChecked()) {
-            data.add("22:00:00");
+            data.add(jam22.getText().toString());
+            dataDB.add("22:00:00");
         }
 
 //                JSONObject jsonObject = new JSONObject();
@@ -266,20 +285,27 @@ public class Pemesanan extends Fragment {
 //                }
 //                Log.d(TAG, "berhasil mang di klik " + jsonObject);
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("id_lapangan", id_lapangan);
-        bundle.putString("waktu_pilih_tanggal", waktu_pilih);
-        bundle.putString("harga_lapangan", harga_lapangan);
-        bundle.putString("metode_bayar", metode_bayar);
-        bundle.putStringArrayList("waktu_pilih_jam", data);
+        if(dataDB.size() != 0) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id_lapangan", id_lapangan);
+            bundle.putString("nama_lapangan", nama_lapangan);
+            bundle.putString("waktu_pilih_tanggal", waktu_pilih);
+            bundle.putString("harga_lapangan", harga_lapangan);
+            bundle.putString("metode_bayar", metode_bayar);
+            bundle.putStringArrayList("waktu_pilih_jamDB", dataDB);
+            bundle.putStringArrayList("waktu_pilih_jam", data);
 
-        Fragment fragment = new Pemesanan();
-        fragment.setArguments(bundle);
-        AppCompatActivity activity = (AppCompatActivity) v.getContext();
-        activity.getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frame_container, fragment)
-                .addToBackStack(null)
-                .commit();
+            Fragment fragment = new DetailPemesanan();
+            fragment.setArguments(bundle);
+            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            Toast.makeText(getActivity(), "Pilih jam terlebih dahulu!",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

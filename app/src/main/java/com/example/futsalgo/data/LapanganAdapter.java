@@ -19,7 +19,9 @@ import com.example.futsalgo.DetailLapangan;
 import com.example.futsalgo.R;
 import com.example.futsalgo.data.model.Lapangan;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -44,7 +46,7 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHo
         final Lapangan lapangan = list.get(position);
 
         holder.textNama.setText(lapangan.getNama());
-        holder.textHarga.setText(lapangan.getHarga());
+        holder.textHarga.setText(NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(Double.parseDouble(lapangan.getHarga())));
         holder.textAlamat.setText(lapangan.getAlamat());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

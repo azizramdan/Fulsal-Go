@@ -73,7 +73,7 @@ public class MenuBeranda extends Fragment {
                                 dataList.add(new Lapangan(
                                         dataLapangan.getInt("id"),
                                         dataLapangan.getString("nama"),
-                                        NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(Double.parseDouble(dataLapangan.getString("harga"))),
+                                        dataLapangan.getString("harga"),
                                         dataLapangan.getString("telp"),
                                         dataLapangan.getString("alamat"),
                                         dataLapangan.getString("longitude"),

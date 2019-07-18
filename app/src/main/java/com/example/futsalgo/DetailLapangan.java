@@ -25,7 +25,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -59,7 +61,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
             .placeholder(R.drawable.picture)
             .into(foto);
         nama.setText(bundle.getString("nama"));
-        harga.setText("Harga: " + bundle.getString("harga"));
+        harga.setText("Harga per jam: " + NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(Double.parseDouble(bundle.getString("harga"))));
         telp.setText("No. HP: " + bundle.getString("telp"));
         alamat.setText("Alamat: " + bundle.getString("alamat"));
 
@@ -144,6 +146,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
 
                         Bundle bundle = new Bundle();
                         bundle.putInt("id_lapangan", id_lapangan);
+                        bundle.putString("nama_lapangan", title);
                         bundle.putString("harga_lapangan", harga_lapangan);
                         bundle.putString("waktu_pilih", date);
 
