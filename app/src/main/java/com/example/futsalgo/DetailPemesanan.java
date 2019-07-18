@@ -1,24 +1,35 @@
 package com.example.futsalgo;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.futsalgo.data.WaktuPilihJamAdapter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
+import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class DetailPemesanan extends Fragment {
     public DetailPemesanan() {
@@ -28,7 +39,8 @@ public class DetailPemesanan extends Fragment {
     LinearLayout view;
     String nama_lapangan, waktu_pilih_tanggal, metode_bayar, harga_lapangan;
     Integer id_lapangan, id_user;
-    ArrayList<String> waktu_pilih_jam, waktu_pilih_jamDB;
+    ArrayList<String> waktu_pilih_jam;
+    JSONArray waktu_pilih_jamDB;
     TextView tvnama_lapangan, tvharga_lapangan, tvwaktu_pilih_tanggal, tvtotal_bayar, tvmetode_bayar;
     RecyclerView recyclerView;
 
@@ -49,7 +61,8 @@ public class DetailPemesanan extends Fragment {
         waktu_pilih_tanggal = bundle.getString("waktu_pilih_tanggal");
         metode_bayar = bundle.getString("metode_bayar");
         harga_lapangan = bundle.getString("harga_lapangan");
-        waktu_pilih_jamDB = bundle.getStringArrayList("waktu_pilih_jamDB");
+//        waktu_pilih_jamDB = bundle.getStringArrayList("waktu_pilih_jamDB");
+        waktu_pilih_jamDB = new JSONArray(bundle.getStringArrayList("waktu_pilih_jamDB"));
         waktu_pilih_jam = bundle.getStringArrayList("waktu_pilih_jam");
 
         tvnama_lapangan = view.findViewById(R.id.nama_lapangan);
@@ -58,7 +71,7 @@ public class DetailPemesanan extends Fragment {
         tvtotal_bayar = view.findViewById(R.id.total_bayar);
         tvmetode_bayar = view.findViewById(R.id.metode_bayar);
 
-        String waktu_pilih_tanggal_formated = parseDate(waktu_pilih_tanggal, "yyyy-M-d", "EEEE, dd MMMM YYYY");
+        String waktu_pilih_tanggal_formated = Konfigurasi.parseDate(waktu_pilih_tanggal, "yyyy-M-d", "EEEE, dd MMMM YYYY");
 
         String harga_lapangan_idr = NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(Double.parseDouble(harga_lapangan));
         Integer total_bayar = waktu_pilih_jam.size() * Integer.parseInt(harga_lapangan);
@@ -80,27 +93,64 @@ public class DetailPemesanan extends Fragment {
         pesan_sekarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                detailPesan(v);
+                pesanSekarang(view);
             }
         });
-//        getTime();
         return view;
     }
 
-    public String parseDate(String time, String inputPattern, String outputPattern) {
 
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, new Locale("id", "ID"));
 
-        Date date = null;
-        String str = null;
-
+    private void pesanSekarang(View view) {
+        final View v = view;
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Sending...");
+        progressDialog.show();
+        JSONObject data = new JSONObject();
         try {
-            date = inputFormat.parse(time);
-            str = outputFormat.format(date);
-        } catch (ParseException e) {
+            data.put("method", "store");
+            data.put("id_user", id_user);
+            data.put("id_lapangan", id_lapangan);
+            data.put("waktu_pilih_tanggal", waktu_pilih_tanggal);
+            data.put("waktu_pilih_jam", waktu_pilih_jamDB);
+            data.put("metode_bayar", metode_bayar);
+
+            Log.d(TAG, "zzz data yang dikirim: " + data);
+
+            AndroidNetworking.post(Konfigurasi.PESANAN)
+                    .addJSONObjectBody(data)
+                    .setPriority(Priority.MEDIUM)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.d(TAG, "zzz respon php: " + response);
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Pemesanan berhasil!", Toast.LENGTH_LONG).show();
+
+                            Fragment fragment = new MenuBeranda();
+                            AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                            activity.getSupportFragmentManager()
+                                    .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            activity.getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.frame_container, fragment)
+                                    .commit();
+                        }
+                        @Override
+                        public void onError(ANError error) {
+                            Log.d(TAG, "zzz onError: Failed " + error);
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), "Pemesanan gagal!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        } catch (JSONException e) {
             e.printStackTrace();
+            Log.d(TAG, "zzz onError: Failed json " + e);
+            progressDialog.dismiss();
+            Toast.makeText(getActivity(), "Pemesanan gagal!", Toast.LENGTH_SHORT).show();
         }
-        return str;
     }
 }
