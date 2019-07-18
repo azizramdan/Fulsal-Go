@@ -14,26 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.example.futsalgo.data.LapanganAdapter;
-import com.example.futsalgo.data.model.Lapangan;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
-
 import static android.support.constraint.Constraints.TAG;
 import static java.lang.Boolean.FALSE;
 
@@ -122,6 +113,7 @@ public class Pemesanan extends Fragment {
         AndroidNetworking.post(Konfigurasi.PESANAN)
                 .addBodyParameter("method", "showTime")
                 .addBodyParameter("waktu_pilih", waktu_pilih)
+                .addBodyParameter("id_lapangan", id_lapangan.toString())
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -137,51 +129,67 @@ public class Pemesanan extends Fragment {
                                 Log.d(TAG, "berhasil mang data time " + dataTime);
                                 switch (dataTime.optString("waktu_pilih")) {
                                     case "07":
+                                        jam7.setChecked(FALSE);
                                         jam7.setEnabled(FALSE);
                                         break;
                                     case "08":
+                                        jam8.setChecked(FALSE);
                                         jam8.setEnabled(FALSE);
                                         break;
                                     case "09":
+                                        jam9.setChecked(FALSE);
                                         jam9.setEnabled(FALSE);
                                         break;
                                     case "10":
+                                        jam10.setChecked(FALSE);
                                         jam10.setEnabled(FALSE);
                                         break;
                                     case "11":
+                                        jam11.setChecked(FALSE);
                                         jam11.setEnabled(FALSE);
                                         break;
                                     case "12":
+                                        jam12.setChecked(FALSE);
                                         jam12.setEnabled(FALSE);
                                         break;
                                     case "13":
+                                        jam13.setChecked(FALSE);
                                         jam13.setEnabled(FALSE);
                                         break;
                                     case "14":
+                                        jam14.setChecked(FALSE);
                                         jam14.setEnabled(FALSE);
                                         break;
                                     case "15":
+                                        jam15.setChecked(FALSE);
                                         jam15.setEnabled(FALSE);
                                         break;
                                     case "16":
+                                        jam16.setChecked(FALSE);
                                         jam16.setEnabled(FALSE);
                                         break;
                                     case "17":
+                                        jam17.setChecked(FALSE);
                                         jam17.setEnabled(FALSE);
                                         break;
                                     case "18":
+                                        jam18.setChecked(FALSE);
                                         jam18.setEnabled(FALSE);
                                         break;
                                     case "19":
+                                        jam19.setChecked(FALSE);
                                         jam19.setEnabled(FALSE);
                                         break;
                                     case "20":
+                                        jam20.setChecked(FALSE);
                                         jam20.setEnabled(FALSE);
                                         break;
                                     case "21":
+                                        jam21.setChecked(FALSE);
                                         jam21.setEnabled(FALSE);
                                         break;
                                     case "22":
+                                        jam22.setChecked(FALSE);
                                         jam22.setEnabled(FALSE);
                                         break;
                                     default:
@@ -273,17 +281,6 @@ public class Pemesanan extends Fragment {
             data.add(jam22.getText().toString());
             dataDB.add("22:00:00");
         }
-
-//                JSONObject jsonObject = new JSONObject();
-//                try {
-//                    jsonObject.put("id_user", id_user);
-//                    jsonObject.put("id_lapangan", id_lapangan);
-//                    jsonObject.put("waktu_pilih_tanggal", waktu_pilih);
-//                    jsonObject.put("waktu_pilih_jam", data);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                Log.d(TAG, "berhasil mang di klik " + jsonObject);
 
         if(dataDB.size() != 0) {
             Bundle bundle = new Bundle();
