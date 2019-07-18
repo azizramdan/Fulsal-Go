@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity
     // untuk mengganti isi kontainer menu yang dipiih
     private void callFragment(Fragment fragment) {
         fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_container, fragment)
                 .commit();
