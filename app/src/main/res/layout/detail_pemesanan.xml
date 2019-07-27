@@ -73,6 +73,30 @@
                 android:text="Metode Bayar"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/bank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Bank"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/nama_rekening"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Nama Rekening"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/no_rekening"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="No Rekening"
+                android:textSize="18sp" />
+
             <Button
                 android:id="@+id/pesan_sekarang"
                 android:layout_width="match_parent"

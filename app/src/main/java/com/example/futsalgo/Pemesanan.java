@@ -35,7 +35,7 @@ public class Pemesanan extends Fragment {
 
     LinearLayout view;
     CheckBox jam7, jam8, jam9, jam10, jam11, jam12, jam13, jam14, jam15, jam16, jam17, jam18, jam19, jam20, jam21, jam22;
-    String nama_lapangan, waktu_pilih, metode_bayar, harga_lapangan;
+    String nama_lapangan, waktu_pilih, metode_bayar, harga_lapangan, bank, nama_rekening, no_rekening;
     Integer id_lapangan, id_user;
     Spinner spinner;
 
@@ -51,6 +51,9 @@ public class Pemesanan extends Fragment {
         nama_lapangan = bundle.getString("nama_lapangan");
         harga_lapangan = bundle.getString("harga_lapangan");
         waktu_pilih = bundle.getString("waktu_pilih");
+        bank = bundle.getString("bank");
+        nama_rekening = bundle.getString("nama_rekening");
+        no_rekening = bundle.getString("no_rekening");
         SharedPreferences user = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         id_user = user.getInt("id", 0);
 
@@ -289,6 +292,9 @@ public class Pemesanan extends Fragment {
             bundle.putString("waktu_pilih_tanggal", waktu_pilih);
             bundle.putString("harga_lapangan", harga_lapangan);
             bundle.putString("metode_bayar", metode_bayar);
+            bundle.putString("bank", bank);
+            bundle.putString("nama_rekening", nama_rekening);
+            bundle.putString("no_rekening", no_rekening);
             bundle.putStringArrayList("waktu_pilih_jamDB", dataDB);
             bundle.putStringArrayList("waktu_pilih_jam", data);
 

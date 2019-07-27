@@ -74,12 +74,14 @@ public class MenuBeranda extends Fragment {
                                         dataLapangan.getInt("id"),
                                         dataLapangan.getString("nama"),
                                         dataLapangan.getString("harga"),
+                                        dataLapangan.getString("foto"),
                                         dataLapangan.getString("telp"),
                                         dataLapangan.getString("alamat"),
-                                        dataLapangan.getString("longitude"),
                                         dataLapangan.getString("latitude"),
-                                        dataLapangan.getString("foto"),
-                                        dataLapangan.getString("email")
+                                        dataLapangan.getString("longitude"),
+                                        dataLapangan.getString("bank"),
+                                        dataLapangan.getString("nama_rekening"),
+                                        dataLapangan.getString("no_rekening")
                                         ));
                             }
 

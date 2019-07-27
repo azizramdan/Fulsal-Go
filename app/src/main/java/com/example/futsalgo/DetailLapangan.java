@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,7 +36,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
     }
     LinearLayout view;
     Double latitude, longitude;
-    String title, harga_lapangan;
+    String title, harga_lapangan, bank, nama_rekening, no_rekening;
     ScrollView nScrollView;
     Integer id_lapangan;
 
@@ -68,6 +67,9 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
         id_lapangan = bundle.getInt("id");
         title = bundle.getString("nama");
         harga_lapangan = bundle.getString("harga");
+        bank = bundle.getString("bank");
+        nama_rekening = bundle.getString("nama_rekening");
+        no_rekening = bundle.getString("no_rekening");
         latitude = Double.parseDouble(bundle.getString("latitude"));
         longitude = Double.parseDouble(bundle.getString("longitude"));
 
@@ -150,6 +152,9 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
                         bundle.putString("nama_lapangan", title);
                         bundle.putString("harga_lapangan", harga_lapangan);
                         bundle.putString("waktu_pilih", date);
+                        bundle.putString("bank", bank);
+                        bundle.putString("nama_rekening", nama_rekening);
+                        bundle.putString("no_rekening", no_rekening);
 
                         Fragment fragment = new Pemesanan();
                         fragment.setArguments(bundle);

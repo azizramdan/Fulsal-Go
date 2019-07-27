@@ -37,11 +37,11 @@ public class DetailPemesanan extends Fragment {
     }
 
     LinearLayout view;
-    String nama_lapangan, waktu_pilih_tanggal, metode_bayar, harga_lapangan;
+    String nama_lapangan, waktu_pilih_tanggal, metode_bayar, harga_lapangan, bank, nama_rekening, no_rekening;
     Integer id_lapangan, id_user;
     ArrayList<String> waktu_pilih_jam;
     JSONArray waktu_pilih_jamDB;
-    TextView tvnama_lapangan, tvharga_lapangan, tvwaktu_pilih_tanggal, tvtotal_bayar, tvmetode_bayar;
+    TextView tvnama_lapangan, tvharga_lapangan, tvwaktu_pilih_tanggal, tvtotal_bayar, tvmetode_bayar, tvbank, tvnama_rekening, tvno_rekening;
     RecyclerView recyclerView;
 
     @Override
@@ -61,6 +61,9 @@ public class DetailPemesanan extends Fragment {
         waktu_pilih_tanggal = bundle.getString("waktu_pilih_tanggal");
         metode_bayar = bundle.getString("metode_bayar");
         harga_lapangan = bundle.getString("harga_lapangan");
+        bank = bundle.getString("bank");
+        nama_rekening = bundle.getString("nama_rekening");
+        no_rekening = bundle.getString("no_rekening");
 //        waktu_pilih_jamDB = bundle.getStringArrayList("waktu_pilih_jamDB");
         waktu_pilih_jamDB = new JSONArray(bundle.getStringArrayList("waktu_pilih_jamDB"));
         waktu_pilih_jam = bundle.getStringArrayList("waktu_pilih_jam");
@@ -70,6 +73,19 @@ public class DetailPemesanan extends Fragment {
         tvwaktu_pilih_tanggal = view.findViewById(R.id.waktu_pilih_tanggal);
         tvtotal_bayar = view.findViewById(R.id.total_bayar);
         tvmetode_bayar = view.findViewById(R.id.metode_bayar);
+        tvbank = view.findViewById(R.id.bank);
+        tvnama_rekening = view.findViewById(R.id.nama_rekening);
+        tvno_rekening = view.findViewById(R.id.no_rekening);
+
+        if(metode_bayar.equals("COD")) {
+            tvbank.setVisibility(View.GONE);
+            tvnama_rekening.setVisibility(View.GONE);
+            tvno_rekening.setVisibility(View.GONE);
+        } else {
+            tvbank.setText(bundle.getString("bank"));
+            tvnama_rekening.setText("a.n. " + bundle.getString("nama_rekening"));
+            tvno_rekening.setText(bundle.getString("no_rekening"));
+        }
 
         String waktu_pilih_tanggal_formated = Konfigurasi.parseDate(waktu_pilih_tanggal, "yyyy-M-d", "EEEE, dd MMMM YYYY");
 

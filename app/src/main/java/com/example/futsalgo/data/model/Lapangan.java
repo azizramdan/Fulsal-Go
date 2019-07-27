@@ -2,9 +2,9 @@ package com.example.futsalgo.data.model;
 
 public class Lapangan {
     Integer id;
-    String nama, harga, telp, alamat, longitude, latitude, foto, email;
+    String nama, harga, telp, alamat, longitude, latitude, foto, bank, nama_rekening, no_rekening;
 
-    public Lapangan(Integer id, String nama, String harga, String telp, String alamat, String longitude, String latitude, String foto, String email) {
+    public Lapangan(Integer id, String nama, String harga, String foto, String telp, String alamat, String latitude, String longitude, String bank, String nama_rekening, String no_rekening) {
         this.id = id;
         this.nama = nama;
         this.harga = harga;
@@ -13,7 +13,9 @@ public class Lapangan {
         this.longitude = longitude;
         this.latitude = latitude;
         this.foto = foto;
-        this.email = email;
+        this.bank = bank;
+        this.nama_rekening = nama_rekening;
+        this.no_rekening = no_rekening;
     }
 
     public Integer getId() {
@@ -40,8 +42,14 @@ public class Lapangan {
     public String getFoto() {
         return foto;
     }
-    public String getEmail() {
-        return email;
+    public String getBank() {
+        return bank;
+    }
+    public String getNamaRekening() {
+        return nama_rekening;
+    }
+    public String getNoRekening() {
+        return no_rekening;
     }
 
     public void setId(Integer id) {
@@ -51,24 +59,30 @@ public class Lapangan {
         this.nama = nama;
     }
     public void setHarga(String harga) {
-        this.nama = harga;
+        this.harga = harga;
     }
     public void setTelp(String telp) {
-        this.nama = telp;
+        this.telp = telp;
     }
     public void setAlamat(String alamat) {
-        this.nama = alamat;
+        this.alamat = alamat;
     }
     public void setLongitude(String longitude) {
-        this.nama = longitude;
+        this.longitude = longitude;
     }
     public void setLatitude(String latitude) {
-        this.nama = latitude;
+        this.latitude = latitude;
     }
     public void setFoto(String foto) {
-        this.nama = foto;
+        this.foto = foto;
     }
-    public void setEmail(String email) {
-        this.nama = email;
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
+    public void setNama_rekening(String nama_rekening) {
+        this.nama_rekening = nama_rekening;
+    }
+    public void setNo_rekening(String no_rekening) {
+        this.no_rekening = no_rekening;
     }
 }
