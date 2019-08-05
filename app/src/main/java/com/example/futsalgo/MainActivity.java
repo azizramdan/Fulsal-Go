@@ -1,6 +1,7 @@
 package com.example.futsalgo;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
@@ -135,10 +137,37 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
     private void logout() {
-        SharedPreferences sharedpreferences = getSharedPreferences("dataUser", Context.MODE_PRIVATE);
-        sharedpreferences.edit().clear().commit();
-        Log.d(TAG, "berhasil mang shpref " + sharedpreferences.getAll());
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
+        final SharedPreferences sharedpreferences = getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage(
+                        "Apakah Anda yakin ingin keluar?")
+                .setIcon(
+                        android.R.drawable.ic_dialog_alert
+                )
+                .setPositiveButton(
+                        "Ya",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                sharedpreferences.edit().clear().commit();
+                                Log.d(TAG, "berhasil mang shpref " + sharedpreferences.getAll());
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                finish();
+                            }
+                        })
+                .setNegativeButton(
+                        "Tidak",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                //Do Something Here
+                            }
+                        }).show();
     }
 }
