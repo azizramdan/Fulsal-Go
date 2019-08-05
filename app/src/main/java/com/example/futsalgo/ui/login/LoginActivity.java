@@ -12,6 +12,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -27,17 +28,26 @@ import com.example.futsalgo.R;
 import com.example.futsalgo.ui.login.LoginViewModel;
 import com.example.futsalgo.ui.login.LoginViewModelFactory;
 
+import static android.support.constraint.Constraints.TAG;
 import static java.lang.Boolean.TRUE;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     SharedPreferences sharedpreferences;
+    ProgressBar loadingProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedpreferences = getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+        if(sharedpreferences.contains("id")) {
+            Log.d(TAG, "berhasil mang shpref " + sharedpreferences.getAll());
+            launchHomeScreen();
+        }
+
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
@@ -45,10 +55,9 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
 
         final Button loginButton = findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        loadingProgressBar = findViewById(R.id.loading);
 
         AndroidNetworking.initialize(getApplicationContext());
-        sharedpreferences = getSharedPreferences("dataUser", Context.MODE_PRIVATE);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -57,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loginButton.setEnabled(loginFormState.isDataValid());
-//                loginButton.setEnabled(TRUE);
 
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
@@ -128,13 +136,14 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                usernameEditText.setText("aziz@email.com");
-//                passwordEditText.setText("admin");
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+//                String username = "aziz@gmail.com";
+//                String password = "admin";
+                login(username, password);
             }
         });
+//        loginButton.setEnabled(true);
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
@@ -149,5 +158,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+    private void login(String username, String password) {
+        loadingProgressBar.setVisibility(View.VISIBLE);
+        loginViewModel.login(username, password);
     }
 }

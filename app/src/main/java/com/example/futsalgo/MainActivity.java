@@ -1,12 +1,14 @@
 package com.example.futsalgo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +20,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.TextView;
+
+import com.example.futsalgo.ui.login.LoginActivity;
+import com.example.futsalgo.ui.login.LoginViewModel;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -111,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.edit_akun) {
 
         } else if (id == R.id.logout) {
-
+            logout();
         }
 
         callFragment(fragment);
@@ -126,5 +133,12 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.frame_container, fragment)
                 .commit();
+    }
+    private void logout() {
+        SharedPreferences sharedpreferences = getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+        sharedpreferences.edit().clear().commit();
+        Log.d(TAG, "berhasil mang shpref " + sharedpreferences.getAll());
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 }
