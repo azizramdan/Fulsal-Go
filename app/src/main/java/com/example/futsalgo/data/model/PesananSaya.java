@@ -2,9 +2,9 @@ package com.example.futsalgo.data.model;
 
 public class PesananSaya {
     Integer id;
-    String waktu_pilih_tanggal, waktu_pilih_jam, metode_bayar, status, nama_lapangan, harga, alamat;
+    String waktu_pilih_tanggal, waktu_pilih_jam, metode_bayar, status, nama_lapangan, harga, alamat, bank, nama_rekening, no_rekening;
 
-    public PesananSaya(Integer id, String waktu_pilih_tanggal,String waktu_pilih_jam, String metode_bayar, String status, String nama_lapangan, String harga, String alamat) {
+    public PesananSaya(Integer id, String waktu_pilih_tanggal, String waktu_pilih_jam, String metode_bayar, String status, String nama_lapangan, String harga, String alamat, String bank, String nama_rekening, String no_rekening) {
         this.id = id;
         this.waktu_pilih_tanggal = waktu_pilih_tanggal;
         this.waktu_pilih_jam = waktu_pilih_jam;
@@ -13,6 +13,9 @@ public class PesananSaya {
         this.nama_lapangan = nama_lapangan;
         this.harga = harga;
         this.alamat = alamat;
+        this.bank = bank;
+        this.nama_rekening = nama_rekening;
+        this.no_rekening = no_rekening;
     }
 
     public Integer getId() {
@@ -39,6 +42,15 @@ public class PesananSaya {
     public String getAlamat() {
         return alamat;
     }
+    public String getBank() {
+        return bank;
+    }
+    public String getNamaRekening() {
+        return nama_rekening;
+    }
+    public String getNoRekening() {
+        return no_rekening;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -64,4 +76,14 @@ public class PesananSaya {
     public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
+    public void setNamaRekening(String nama_rekening) {
+        this.nama_rekening = nama_rekening;
+    }
+    public void setNoRekening(String no_rekening) {
+        this.no_rekening = no_rekening;
+    }
+
 }

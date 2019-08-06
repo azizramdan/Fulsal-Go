@@ -85,7 +85,10 @@ public class PesananSayaMenu extends Fragment {
                                         dataPesanan.getString("status"),
                                         dataPesanan.getString("nama_lapangan"),
                                         dataPesanan.getString("harga"),
-                                        dataPesanan.getString("alamat")
+                                        dataPesanan.getString("alamat"),
+                                        dataPesanan.getString("bank"),
+                                        dataPesanan.getString("nama_rekening"),
+                                        dataPesanan.getString("no_rekening")
                                         ));
                             }
 

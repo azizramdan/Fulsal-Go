@@ -61,6 +61,9 @@ public class PesananSayaAdapter extends RecyclerView.Adapter<PesananSayaAdapter.
                 bundle.putString("status", pesanan_saya.getStatus());
                 bundle.putString("harga", pesanan_saya.getHarga());
                 bundle.putString("alamat", pesanan_saya.getAlamat());
+                bundle.putString("bank", pesanan_saya.getBank());
+                bundle.putString("nama_rekening", pesanan_saya.getNamaRekening());
+                bundle.putString("no_rekening", pesanan_saya.getNoRekening());
                 fragment = new PesananSayaDetail();
                 fragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
