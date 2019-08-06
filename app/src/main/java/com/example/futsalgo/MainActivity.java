@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.pesanan_saya) {
             fragment = new PesananSayaMenu();
         } else if (id == R.id.edit_akun) {
-
+            fragment = new EditAkunMenu();
         } else if (id == R.id.logout) {
             logout();
         }
