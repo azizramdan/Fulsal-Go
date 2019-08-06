@@ -4,16 +4,18 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,17 +23,10 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.example.futsalgo.data.LapanganAdapter;
-import com.example.futsalgo.data.model.Lapangan;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -39,7 +34,7 @@ public class EditAkunMenu extends Fragment {
     public EditAkunMenu(){}
     LinearLayout view;
     Integer id;
-    TextView tvnama, tvemail, tvtelp;
+    EditText etnama, etemail, ettelp, etpassword, etkonfirmasi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,9 +42,11 @@ public class EditAkunMenu extends Fragment {
         getActivity().setTitle("Edit Akun");
 
         view = (LinearLayout) inflater.inflate(R.layout.edit_akun_menu, container, false);
-        tvnama = view.findViewById(R.id.nama);
-        tvemail = view.findViewById(R.id.email);
-        tvtelp = view.findViewById(R.id.telp);
+        etnama = view.findViewById(R.id.nama);
+        etemail = view.findViewById(R.id.email);
+        ettelp = view.findViewById(R.id.telp);
+        etpassword = view.findViewById(R.id.password);
+        etkonfirmasi = view.findViewById(R.id.konfirmasi_password);
 
         AndroidNetworking.initialize(getActivity());
         SharedPreferences user = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);
@@ -60,7 +57,15 @@ public class EditAkunMenu extends Fragment {
         btnsimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simpan();
+                if(etpassword.getText().toString().length() != 0 && etpassword.getText().toString().length() < 5) {
+                    Toast.makeText(getActivity(), "Password minimal 5 karakter!", Toast.LENGTH_LONG).show();
+                } else {
+                    if(!etpassword.getText().toString().equals(etkonfirmasi.getText().toString())) {
+                        Toast.makeText(getActivity(), "Konfirmasi password salah!", Toast.LENGTH_LONG).show();
+                    } else {
+                        simpan();
+                    }
+                }
             }
         });
         return view;
@@ -83,9 +88,9 @@ public class EditAkunMenu extends Fragment {
                             JSONArray data = response.getJSONArray("data");
                             JSONObject dataUser = data.getJSONObject(0);
 
-                            tvnama.setText(dataUser.getString("nama"));
-                            tvemail.setText(dataUser.getString("email"));
-                            tvtelp.setText(dataUser.getString("telp"));
+                            etnama.setText(dataUser.getString("nama"));
+                            etemail.setText(dataUser.getString("email"));
+                            ettelp.setText(dataUser.getString("telp"));
 
                             progressDialog.dismiss();
 
@@ -107,10 +112,10 @@ public class EditAkunMenu extends Fragment {
         AndroidNetworking.post(Konfigurasi.USER)
                 .addBodyParameter("method", "update")
                 .addBodyParameter("id", id.toString())
-                .addBodyParameter("nama", tvnama.getText().toString())
-                .addBodyParameter("telp", tvtelp.getText().toString())
-                .addBodyParameter("email", tvemail.getText().toString())
-                .addBodyParameter("password", id.toString())
+                .addBodyParameter("nama", etnama.getText().toString())
+                .addBodyParameter("telp", ettelp.getText().toString())
+                .addBodyParameter("email", etemail.getText().toString())
+                .addBodyParameter("password", etpassword.getText().toString())
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -119,6 +124,11 @@ public class EditAkunMenu extends Fragment {
                         Log.d(TAG, "berhasil mang response " + response);
                         try {
                             if(response.getBoolean("status")) {
+                                SharedPreferences sharedpreferences = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putString("nama", etnama.getText().toString());
+                                editor.putString("telp", ettelp.getText().toString());
+                                editor.commit();
                                 Toast.makeText(getActivity(), "Data berhasil disimpan!", Toast.LENGTH_LONG).show();
 
                             } else {
