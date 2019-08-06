@@ -24,129 +24,137 @@
                 android:layout_marginBottom="10dp"
                 android:textSize="20sp" />
 
-            <CheckBox
-                android:id="@+id/jam7"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/main_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="07.00 - 08.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
+                android:layout_height="match_parent"
+                android:scrollbars="vertical">
 
-            <CheckBox
-                android:id="@+id/jam8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="08.00 - 09.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
+            </android.support.v7.widget.RecyclerView>
 
-            <CheckBox
-                android:id="@+id/jam9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="09.00 - 10.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam7"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="07.00 - 08.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
 
-            <CheckBox
-                android:id="@+id/jam10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="10.00 - 11.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="11.00 - 12.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="12.00 - 13.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="13.00 - 14.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="14.00 - 15.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="15.00 - 16.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="16.00 - 17.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam8"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="08.00 - 09.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
 
-            <CheckBox
-                android:id="@+id/jam17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="17.00 - 18.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="18.00 - 19.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="19.00 - 20.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="20.00 - 21.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="21.00 - 22.00"
-                android:layout_marginBottom="5dp"
-                android:textSize="24sp" />
-            <CheckBox
-                android:id="@+id/jam22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="22.00 - 23.00"
-                android:layout_marginBottom="25dp"
-                android:textSize="24sp" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam9"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="09.00 - 10.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Pilih metode pembayaran"
-                android:layout_marginBottom="10dp"
-                android:textSize="20sp" />
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam10"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="10.00 - 11.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam11"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="11.00 - 12.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam12"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="12.00 - 13.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam13"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="13.00 - 14.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam14"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="14.00 - 15.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam15"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="15.00 - 16.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam16"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="16.00 - 17.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam17"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="17.00 - 18.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam18"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="18.00 - 19.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam19"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="19.00 - 20.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam20"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="20.00 - 21.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam21"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="21.00 - 22.00"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textSize="24sp" />-->
+            <!--<CheckBox-->
+                <!--android:id="@+id/jam22"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="22.00 - 23.00"-->
+                <!--android:layout_marginBottom="25dp"-->
+                <!--android:textSize="24sp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Pilih metode pembayaran"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:textSize="20sp" />-->
 
             <Spinner
                 android:id="@+id/metode_bayar"

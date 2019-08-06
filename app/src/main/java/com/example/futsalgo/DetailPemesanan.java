@@ -110,6 +110,7 @@ public class DetailPemesanan extends Fragment {
             @Override
             public void onClick(View v) {
                 pesanSekarang(view);
+
             }
         });
         return view;
