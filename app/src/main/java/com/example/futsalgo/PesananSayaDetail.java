@@ -1,19 +1,12 @@
 package com.example.futsalgo;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.constraint.Constraints;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.example.futsalgo.data.PesananSayaAdapter;
-import com.example.futsalgo.data.WaktuPilihJamAdapter;
-import com.example.futsalgo.data.model.PesananSaya;
-import com.example.futsalgo.ui.login.LoginActivity;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,16 +26,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Locale;
-
-import static com.google.android.gms.wearable.DataMap.TAG;
 import static java.lang.Boolean.FALSE;
 
 public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
@@ -64,7 +46,6 @@ public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
 
         view = (LinearLayout) inflater.inflate(R.layout.pesanan_saya_detail, container, false);
-//        AndroidNetworking.initialize(getActivity());
         getActivity().setTitle("Detail Pemesanan");
 
         Bundle bundle = this.getArguments();
@@ -196,8 +177,6 @@ public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
                                         .getAsJSONObject(new JSONObjectRequestListener() {
                                             @Override
                                             public void onResponse(JSONObject response) {
-                                                Log.d(Constraints.TAG, "berhasil mang response " + response);
-
                                                 try {
                                                     progressDialog.dismiss();
                                                         if(response.getBoolean("status")) {
@@ -224,7 +203,6 @@ public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
                                             }
                                             @Override
                                             public void onError(ANError error) {
-                                                Log.d(Constraints.TAG, "error mang " + error);
                                                 progressDialog.dismiss();
                                                 Toast.makeText(getActivity(), "Pesanan gagal dibatalkan!", Toast.LENGTH_LONG).show();
                                             }

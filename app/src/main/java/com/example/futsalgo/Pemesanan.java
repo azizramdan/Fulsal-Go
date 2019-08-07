@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +17,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.futsalgo.data.WaktuPilihAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class Pemesanan extends Fragment {
     public Pemesanan() {
@@ -38,7 +33,6 @@ public class Pemesanan extends Fragment {
     }
 
     LinearLayout view;
-//    CheckBox jam7, jam8, jam9, jam10, jam11, jam12, jam13, jam14, jam15, jam16, jam17, jam18, jam19, jam20, jam21, jam22;
     String nama_lapangan, waktu_pilih, metode_bayar, harga_lapangan, bank, nama_rekening, no_rekening, no_hp;
     Integer id_lapangan, id_user;
     Spinner spinner;
@@ -82,17 +76,11 @@ public class Pemesanan extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-//                String item = parent.getItemAtPosition(position).toString();
-//                Log.d(TAG, item);
                 metode_bayar = parent.getItemAtPosition(position).toString();
-                Log.d(TAG, "berhasil mang spinner " + parent.getItemAtPosition(position));
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d(TAG, "gagal mang spinner ");
-
             }
         });
 
@@ -123,22 +111,14 @@ public class Pemesanan extends Fragment {
                         ArrayList<String> waktu_pilih_arr = new ArrayList<>();
                         ArrayList<String> waktu_pilih_text_arr = new ArrayList<>();
                         ArrayList<Boolean> kosong = new ArrayList<>();
-
-                        Log.d(TAG, "berhasil mang response " + response);
                         try {
                             JSONArray data = response.getJSONArray("data");
-                            Log.d(TAG, "berhasil mang data " + data);
-
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject dataTime = data.getJSONObject(i);
-                                Log.d(TAG, "berhasil mang data time " + dataTime);
-
                                 waktu_pilih_arr.add(dataTime.optString("waktu_pilih"));
                                 waktu_pilih_text_arr.add(dataTime.optString("waktu_pilih_text"));
                                 kosong.add(dataTime.optBoolean("kosong"));
                             }
-
-                            Log.d(TAG, "berhasil mang selesai looping");
                             WaktuPilihAdapter adapter = new WaktuPilihAdapter(waktu_pilih_arr, waktu_pilih_text_arr, kosong);
                             recyclerView.setAdapter(adapter);
                             progressDialog.dismiss();
@@ -150,14 +130,11 @@ public class Pemesanan extends Fragment {
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d(TAG, "error mang " + error);
                         progressDialog.dismiss();
                     }
                 });
     }
     private void detailPesan(View v) {
-        Log.d(TAG, "cek state " + waktu_pilih_state + " dan " + waktu_pilih_text_state);
-
         if(waktu_pilih_state.size() != 0) {
             Bundle bundle = new Bundle();
             bundle.putInt("id_lapangan", id_lapangan);

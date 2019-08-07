@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,12 +21,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class DetailLapangan extends Fragment implements OnMapReadyCallback {
     public DetailLapangan() {
@@ -108,13 +103,6 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
         lanjut_pesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Fragment fragment = new Pemesanan();
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                activity.getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.frame_container, fragment)
-//                        .addToBackStack(null)
-//                        .commit();
                 lanjutPesan(v);
             }
         });
@@ -146,7 +134,6 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
                                           int monthOfYear, int dayOfMonth) {
                         String date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                         date = Konfigurasi.parseDate(date, "yyyy-M-d", "yyyy-MM-dd");
-                        Log.d(TAG, "berhasil mang date " + date);
 
                         Bundle bundle = new Bundle();
                         bundle.putInt("id_lapangan", id_lapangan);

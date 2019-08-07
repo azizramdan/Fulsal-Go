@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -29,7 +27,6 @@ import org.json.JSONObject;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class DetailPemesanan extends Fragment {
     public DetailPemesanan() {
@@ -49,7 +46,6 @@ public class DetailPemesanan extends Fragment {
                              Bundle savedInstanceState) {
 
         view = (LinearLayout) inflater.inflate(R.layout.detail_pemesanan, container, false);
-//        AndroidNetworking.initialize(getActivity());
         getActivity().setTitle("Detail Pemesanan");
         recyclerView = view.findViewById(R.id.main_list);
         recyclerView.setHasFixedSize(true);
@@ -65,7 +61,6 @@ public class DetailPemesanan extends Fragment {
         bank = bundle.getString("bank");
         nama_rekening = bundle.getString("nama_rekening");
         no_rekening = bundle.getString("no_rekening");
-//        waktu_pilih_jamDB = bundle.getStringArrayList("waktu_pilih_jamDB");
         waktu_pilih_jamDB = new JSONArray(bundle.getStringArrayList("waktu_pilih_jamDB"));
         waktu_pilih_jam = bundle.getStringArrayList("waktu_pilih_jam");
 
@@ -137,8 +132,6 @@ public class DetailPemesanan extends Fragment {
             data.put("waktu_pilih_jam", waktu_pilih_jamDB);
             data.put("metode_bayar", metode_bayar);
 
-            Log.d(TAG, "zzz data yang dikirim: " + data);
-
             AndroidNetworking.post(Konfigurasi.PESANAN)
                     .addJSONObjectBody(data)
                     .setPriority(Priority.MEDIUM)
@@ -146,7 +139,6 @@ public class DetailPemesanan extends Fragment {
                     .getAsJSONObject(new JSONObjectRequestListener() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d(TAG, "zzz respon php: " + response);
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), "Pemesanan berhasil!", Toast.LENGTH_LONG).show();
 
@@ -162,7 +154,6 @@ public class DetailPemesanan extends Fragment {
                         }
                         @Override
                         public void onError(ANError error) {
-                            Log.d(TAG, "zzz onError: Failed " + error);
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), "Pemesanan gagal!", Toast.LENGTH_SHORT).show();
                         }
@@ -170,7 +161,6 @@ public class DetailPemesanan extends Fragment {
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d(TAG, "zzz onError: Failed json " + e);
             progressDialog.dismiss();
             Toast.makeText(getActivity(), "Pemesanan gagal!", Toast.LENGTH_SHORT).show();
         }

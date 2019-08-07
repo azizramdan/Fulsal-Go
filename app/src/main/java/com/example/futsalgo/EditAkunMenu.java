@@ -4,31 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class EditAkunMenu extends Fragment {
     public EditAkunMenu(){}
@@ -83,7 +73,6 @@ public class EditAkunMenu extends Fragment {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "berhasil mang response " + response);
                         try {
                             JSONArray data = response.getJSONArray("data");
                             JSONObject dataUser = data.getJSONObject(0);
@@ -121,7 +110,6 @@ public class EditAkunMenu extends Fragment {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "berhasil mang response " + response);
                         try {
                             if(response.getBoolean("status")) {
                                 SharedPreferences sharedpreferences = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);

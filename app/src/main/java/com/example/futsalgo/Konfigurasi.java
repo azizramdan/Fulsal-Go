@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Konfigurasi {
-    static String HOST = "http://192.168.43.187/futsalgo/";
+    static String HOST = "http://192.168.43.244/futsalgo/";
     public static final String USER = HOST + "user.php";
     public static final String LAPANGAN = HOST + "lapangan.php";
     public static final String PESANAN = HOST + "pesanan.php";

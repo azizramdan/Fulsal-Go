@@ -2,11 +2,6 @@ package com.example.futsalgo.data.model;
 
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */

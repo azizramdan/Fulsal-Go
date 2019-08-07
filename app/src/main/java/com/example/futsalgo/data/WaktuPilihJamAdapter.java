@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.futsalgo.R;
-
 import java.util.ArrayList;
 
 public class WaktuPilihJamAdapter extends RecyclerView.Adapter<WaktuPilihJamAdapter.ViewHolder> {

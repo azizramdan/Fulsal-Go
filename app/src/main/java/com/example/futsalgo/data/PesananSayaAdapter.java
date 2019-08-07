@@ -6,23 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.futsalgo.DetailLapangan;
 import com.example.futsalgo.PesananSayaDetail;
 import com.example.futsalgo.R;
-import com.example.futsalgo.data.model.Lapangan;
 import com.example.futsalgo.data.model.PesananSaya;
-
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-
-import static android.support.constraint.Constraints.TAG;
 
 
 public class PesananSayaAdapter extends RecyclerView.Adapter<PesananSayaAdapter.ViewHolder> {

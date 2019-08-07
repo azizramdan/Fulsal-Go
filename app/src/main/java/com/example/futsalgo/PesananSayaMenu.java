@@ -7,29 +7,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.example.futsalgo.data.LapanganAdapter;
 import com.example.futsalgo.data.PesananSayaAdapter;
-import com.example.futsalgo.data.model.Lapangan;
 import com.example.futsalgo.data.model.PesananSaya;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class PesananSayaMenu extends Fragment {
     public PesananSayaMenu(){}
@@ -69,11 +61,8 @@ public class PesananSayaMenu extends Fragment {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "berhasil mang response " + response);
                         try {
                             JSONArray data = response.getJSONArray("data");
-                            Log.d(TAG, "berhasil mang data " + data);
-
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject dataPesanan = data.getJSONObject(i);
 
@@ -94,8 +83,6 @@ public class PesananSayaMenu extends Fragment {
                                         dataPesanan.getString("longitude")
                                         ));
                             }
-
-                            Log.d(TAG, "berhasil mang selesai looping");
                             PesananSayaAdapter adapter = new PesananSayaAdapter(dataList);
                             recyclerView.setAdapter(adapter);
                             progressDialog.dismiss();
@@ -107,7 +94,6 @@ public class PesananSayaMenu extends Fragment {
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d(TAG, "error mang " + error);
                         progressDialog.dismiss();
                     }
                 });

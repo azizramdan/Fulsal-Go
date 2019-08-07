@@ -2,8 +2,6 @@ package com.example.futsalgo.ui.login;
 
 import android.support.annotation.Nullable;
 
-import com.google.gson.JsonObject;
-
 /**
  * Authentication result : success (user details) or error message.
  */

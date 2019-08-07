@@ -1,7 +1,6 @@
 package com.example.futsalgo.data;
 
 import com.example.futsalgo.data.model.LoggedInUser;
-
 import java.io.IOException;
 
 /**

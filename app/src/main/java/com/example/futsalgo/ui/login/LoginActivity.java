@@ -8,11 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -26,11 +24,6 @@ import com.androidnetworking.AndroidNetworking;
 import com.example.futsalgo.MainActivity;
 import com.example.futsalgo.R;
 import com.example.futsalgo.RegistrasiActivity;
-import com.example.futsalgo.ui.login.LoginViewModel;
-import com.example.futsalgo.ui.login.LoginViewModelFactory;
-
-import static android.support.constraint.Constraints.TAG;
-import static java.lang.Boolean.TRUE;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         if(sharedpreferences.contains("id")) {
-            Log.d(TAG, "berhasil mang shpref " + sharedpreferences.getAll());
             launchHomeScreen();
         }
 
@@ -97,21 +89,16 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-//                finish();
             }
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
             }
 
             @Override
@@ -139,12 +126,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-//                String username = "aziz@gmail.com";
-//                String password = "admin";
                 login(username, password);
             }
         });
-//        loginButton.setEnabled(true);
         TextView registrasi = findViewById(R.id.registrasi);
         registrasi.setOnClickListener(new View.OnClickListener() {
             @Override

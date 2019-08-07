@@ -6,21 +6,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.futsalgo.DetailLapangan;
 import com.example.futsalgo.R;
 import com.example.futsalgo.data.model.Lapangan;
-
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-
-import static android.support.constraint.Constraints.TAG;
 
 
 public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHolder> {
@@ -33,7 +28,6 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //inflate view yang akan digunakan yaitu layout instansi_item.xml
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lapangan_item, parent, false);
         return new ViewHolder(v);
     }
@@ -49,8 +43,6 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHo
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "berhasil mang di klik " + lapangan.getNama());
-
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", lapangan.getId());
                 bundle.putString("nama", lapangan.getNama());

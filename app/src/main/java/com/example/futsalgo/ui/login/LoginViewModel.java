@@ -3,9 +3,6 @@ package com.example.futsalgo.ui.login;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 import android.util.Patterns;
 
 import com.androidnetworking.AndroidNetworking;
@@ -13,16 +10,12 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.futsalgo.Konfigurasi;
-import com.example.futsalgo.data.LoginRepository;
-import com.example.futsalgo.data.Result;
-import com.example.futsalgo.data.model.LoggedInUser;
 import com.example.futsalgo.R;
+import com.example.futsalgo.data.LoginRepository;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.support.constraint.Constraints.TAG;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
@@ -49,7 +42,6 @@ public class LoginViewModel extends ViewModel {
     public static String telp = "";
 
     public void login(String username, String password) {
-//        final Result<LoggedInUser> result = loginRepository.login(username, password);
         AndroidNetworking.post(Konfigurasi.USER)
                 .addBodyParameter("method", "login")
                 .addBodyParameter("email", username)
@@ -72,7 +64,6 @@ public class LoginViewModel extends ViewModel {
                                                 data.optString("telp")));
                             } catch (JSONException e) {
                                 e.printStackTrace();
-//                                Log.d(TAG, "on response" + e);
                             }
                         } else {
                             loginResult.setValue(new LoginResult(FALSE, response.opt("msg").toString()));
@@ -80,7 +71,6 @@ public class LoginViewModel extends ViewModel {
                     }
                     @Override
                     public void onError(ANError error) {
-//                        Log.d(TAG, "onError: Failed" + error);
                         loginResult.setValue(new LoginResult(FALSE,"Login failed"));
                     }
                 });
@@ -96,21 +86,14 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
     private boolean isUserNameValid(String username) {
         if (username == null) {
             return false;
         } else {
             return Patterns.EMAIL_ADDRESS.matcher(username).matches();
         }
-//        if (!username.contains("@")) {
-//            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-//        } else {
-//            return !username.trim().isEmpty();
-//        }
     }
 
-    // A placeholder password validation check
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() >= 5;
     }

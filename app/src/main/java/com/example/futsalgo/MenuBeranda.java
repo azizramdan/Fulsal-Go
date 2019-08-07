@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,24 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.futsalgo.data.LapanganAdapter;
 import com.example.futsalgo.data.model.Lapangan;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class MenuBeranda extends Fragment {
     public MenuBeranda(){}
@@ -112,7 +104,6 @@ public class MenuBeranda extends Fragment {
     }
 
     public void getLapangan() {
-        Log.d(TAG, "isi sort " + sort);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -123,11 +114,8 @@ public class MenuBeranda extends Fragment {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "berhasil mang response " + response);
                         try {
                             JSONArray data = response.getJSONArray("data");
-                            Log.d(TAG, "berhasil mang data " + data);
-
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject dataLapangan = data.getJSONObject(i);
 
@@ -145,8 +133,6 @@ public class MenuBeranda extends Fragment {
                                         dataLapangan.getString("no_rekening")
                                         ));
                             }
-
-                            Log.d(TAG, "berhasil mang selesai looping");
                             LapanganAdapter adapter = new LapanganAdapter(dataList);
                             recyclerView.setAdapter(adapter);
                             progressDialog.dismiss();
@@ -158,7 +144,6 @@ public class MenuBeranda extends Fragment {
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d(TAG, "error mang " + error);
                         progressDialog.dismiss();
                     }
                 });
