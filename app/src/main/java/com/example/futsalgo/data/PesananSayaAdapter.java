@@ -64,6 +64,10 @@ public class PesananSayaAdapter extends RecyclerView.Adapter<PesananSayaAdapter.
                 bundle.putString("bank", pesanan_saya.getBank());
                 bundle.putString("nama_rekening", pesanan_saya.getNamaRekening());
                 bundle.putString("no_rekening", pesanan_saya.getNoRekening());
+                bundle.putString("telp", pesanan_saya.getTelp());
+                bundle.putString("latitude", pesanan_saya.getLatitude());
+                bundle.putString("longitude", pesanan_saya.getLongitude());
+
                 fragment = new PesananSayaDetail();
                 fragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();

@@ -100,10 +100,24 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        Bundle bundle = new Bundle();
 
+        if(id == R.id.terlaris) {
+            fragment = new MenuBeranda();
+            bundle.putString("sort", "terlaris");
+            fragment.setArguments(bundle);
+        } else if(id == R.id.termurah) {
+            fragment = new MenuBeranda();
+            bundle.putString("sort", "termurah");
+            fragment.setArguments(bundle);
+        } else if(id == R.id.kurang75) {
+            fragment = new MenuBeranda();
+        } else if(id == R.id.kurang100) {
+            fragment = new MenuBeranda();
+        } else if(id == R.id.kurang150) {
+            fragment = new MenuBeranda();
+        }
+        callFragment(fragment);
         return super.onOptionsItemSelected(item);
     }
 

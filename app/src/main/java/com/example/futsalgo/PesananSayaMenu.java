@@ -88,7 +88,10 @@ public class PesananSayaMenu extends Fragment {
                                         dataPesanan.getString("alamat"),
                                         dataPesanan.getString("bank"),
                                         dataPesanan.getString("nama_rekening"),
-                                        dataPesanan.getString("no_rekening")
+                                        dataPesanan.getString("no_rekening"),
+                                        dataPesanan.getString("telp"),
+                                        dataPesanan.getString("latitude"),
+                                        dataPesanan.getString("longitude")
                                         ));
                             }
 

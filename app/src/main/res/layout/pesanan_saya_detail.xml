@@ -10,6 +10,7 @@
     android:orientation="vertical" >
 
     <ScrollView
+        android:id="@+id/svContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -67,6 +68,21 @@
                 android:text="Metode Bayar"
                 android:textSize="18sp" />
             <TextView
+                android:id="@+id/keterangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Keterangan"
+                android:textColor="#f00"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/telp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="No HP"
+                android:textSize="18sp" />
+            <TextView
                 android:id="@+id/bank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,6 +113,12 @@
                 android:layout_marginBottom="10dp"
                 android:text="Alamat"
                 android:textSize="18sp" />
+            <fragment
+                android:id="@+id/map"
+                class="com.example.futsalgo.MySupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_height="300dp"/>
 
             <Button
                 android:id="@+id/batal"

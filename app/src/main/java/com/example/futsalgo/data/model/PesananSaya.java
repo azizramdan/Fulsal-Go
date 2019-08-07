@@ -2,9 +2,9 @@ package com.example.futsalgo.data.model;
 
 public class PesananSaya {
     Integer id;
-    String waktu_pilih_tanggal, waktu_pilih_jam, metode_bayar, status, nama_lapangan, harga, alamat, bank, nama_rekening, no_rekening;
+    String waktu_pilih_tanggal, waktu_pilih_jam, metode_bayar, status, nama_lapangan, harga, alamat, bank, nama_rekening, no_rekening, telp, latitude, longitude;
 
-    public PesananSaya(Integer id, String waktu_pilih_tanggal, String waktu_pilih_jam, String metode_bayar, String status, String nama_lapangan, String harga, String alamat, String bank, String nama_rekening, String no_rekening) {
+    public PesananSaya(Integer id, String waktu_pilih_tanggal, String waktu_pilih_jam, String metode_bayar, String status, String nama_lapangan, String harga, String alamat, String bank, String nama_rekening, String no_rekening, String telp, String latitude, String longitude) {
         this.id = id;
         this.waktu_pilih_tanggal = waktu_pilih_tanggal;
         this.waktu_pilih_jam = waktu_pilih_jam;
@@ -16,6 +16,9 @@ public class PesananSaya {
         this.bank = bank;
         this.nama_rekening = nama_rekening;
         this.no_rekening = no_rekening;
+        this.telp = telp;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Integer getId() {
@@ -51,6 +54,15 @@ public class PesananSaya {
     public String getNoRekening() {
         return no_rekening;
     }
+    public String getTelp() {
+        return telp;
+    }
+    public String getLatitude() {
+        return latitude;
+    }
+    public String getLongitude() {
+        return longitude;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -85,5 +97,13 @@ public class PesananSaya {
     public void setNoRekening(String no_rekening) {
         this.no_rekening = no_rekening;
     }
-
+    public void setTelp(String telp) {
+        this.telp = telp;
+    }
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 }

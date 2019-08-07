@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,13 @@ import com.example.futsalgo.data.PesananSayaAdapter;
 import com.example.futsalgo.data.WaktuPilihJamAdapter;
 import com.example.futsalgo.data.model.PesananSaya;
 import com.example.futsalgo.ui.login.LoginActivity;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,15 +50,14 @@ import java.util.Locale;
 import static com.google.android.gms.wearable.DataMap.TAG;
 import static java.lang.Boolean.FALSE;
 
-public class PesananSayaDetail extends Fragment {
-    public PesananSayaDetail() {
-
-    }
+public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
+    public PesananSayaDetail() {}
 
     LinearLayout view;
-    String nama_lapangan, waktu_pilih_tanggal, waktu_pilih_jam, metode_bayar, status, harga, alamat;
+    String nama_lapangan, waktu_pilih_tanggal, waktu_pilih_jam, metode_bayar, status, harga, alamat, telp;
+    Double  latitude, longitude;
     Integer id;
-    TextView tvnama_lapangan, tvharga, tvwaktu_pilih_tanggal, tvwaktu_pilih_jam, tvstatus, tvmetode_bayar, tvalamat, tvbank, tvnama_rekening, tvno_rekening;
+    TextView tvnama_lapangan, tvharga, tvwaktu_pilih_tanggal, tvwaktu_pilih_jam, tvstatus, tvmetode_bayar, tvalamat, tvbank, tvnama_rekening, tvno_rekening, tvketerangan, tvtelp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +76,9 @@ public class PesananSayaDetail extends Fragment {
         status = bundle.getString("status");
         harga = bundle.getString("harga");
         alamat = bundle.getString("alamat");
+        telp = bundle.getString("telp");
+        latitude = Double.parseDouble(bundle.getString("latitude"));
+        longitude = Double.parseDouble(bundle.getString("longitude"));
 
         tvnama_lapangan = view.findViewById(R.id.nama_lapangan);
         tvharga = view.findViewById(R.id.harga);
@@ -80,15 +90,21 @@ public class PesananSayaDetail extends Fragment {
         tvbank = view.findViewById(R.id.bank);
         tvnama_rekening = view.findViewById(R.id.nama_rekening);
         tvno_rekening = view.findViewById(R.id.no_rekening);
+        tvtelp = view.findViewById(R.id.telp);
+        tvketerangan = view.findViewById(R.id.keterangan);
 
         if(metode_bayar.equals("COD")) {
             tvbank.setVisibility(View.GONE);
             tvnama_rekening.setVisibility(View.GONE);
             tvno_rekening.setVisibility(View.GONE);
+            tvtelp.setVisibility(View.GONE);
+            tvketerangan.setText("Segera lakukan pembayaran ke lokasi sebelum jam main tiba, apabila sudah melewati jam main maka otomatis pesanan akan dibatalkan");
         } else {
             tvbank.setText(bundle.getString("bank"));
             tvnama_rekening.setText("a.n. " + bundle.getString("nama_rekening"));
             tvno_rekening.setText(bundle.getString("no_rekening"));
+            tvketerangan.setText("Segera lakukan pembayaran melalui transfer, lalu kirimkan bukti transfer sebelum jam main tiba ke no dibawah");
+            tvtelp.setText(telp);
         }
 
         String harga_idr = NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(Double.parseDouble(harga));
@@ -101,8 +117,37 @@ public class PesananSayaDetail extends Fragment {
         tvmetode_bayar.setText("Pembayaran melalui " + metode_bayar);
         tvalamat.setText("Alamat lapangan: " + alamat);
 
-        Button batal = view.findViewById(R.id.batal);
+        final ScrollView nScrollView = view.findViewById(R.id.svContainer);
+        MySupportMapFragment mSupportMapFragment;
+        mSupportMapFragment = (MySupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
+        mSupportMapFragment.setListener(new MySupportMapFragment.OnTouchListener() {
+            @Override
+            public void onTouch() {
+                nScrollView.requestDisallowInterceptTouchEvent(true);
+            }
+        });
+
+        if (mSupportMapFragment != null) {
+            mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    if (googleMap != null) {
+                        googleMap.getUiSettings().setAllGesturesEnabled(true);
+                        googleMap.getUiSettings().setZoomControlsEnabled(true);
+                        LatLng marker_latlng = new LatLng(latitude, longitude);
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(marker_latlng).zoom(15.0f).build();
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                        googleMap.moveCamera(cameraUpdate);
+                        if (latitude != null && longitude != null) {
+                            googleMap.addMarker(new MarkerOptions().position(marker_latlng).title(nama_lapangan));
+                        }
+                    }
+                }
+            });
+        }
+
+        Button batal = view.findViewById(R.id.batal);
         if(!status.equals("Belum bayar")) {
             batal.setEnabled(FALSE);
         } else {
@@ -115,6 +160,13 @@ public class PesananSayaDetail extends Fragment {
         }
 
         return view;
+    }
+    public void onMapReady(GoogleMap googleMap) {
+
+        LatLng myloc = new LatLng(latitude, longitude);
+        googleMap.addMarker(new MarkerOptions().position(myloc)
+                .title(nama_lapangan));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 20));
     }
 
     private void batalPesanan(View view) {
