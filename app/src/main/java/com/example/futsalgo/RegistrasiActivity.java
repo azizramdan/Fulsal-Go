@@ -77,6 +77,7 @@ public class RegistrasiActivity extends AppCompatActivity {
                         try {
                             if(response.getBoolean("status")) {
                                 Toast.makeText(getApplicationContext(), response.getString("msg"), Toast.LENGTH_LONG).show();
+                                finishAffinity();
                                 startActivity(new Intent(RegistrasiActivity.this, LoginActivity.class));
                                 finish();
                             } else {
