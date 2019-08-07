@@ -3,10 +3,14 @@ package com.example.futsalgo;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -35,7 +39,57 @@ public class MenuBeranda extends Fragment {
     private List<Lapangan> dataList;
     private RecyclerView recyclerView;
     String sort;
+    Fragment fragment = null;
+    FragmentManager fragmentManager;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        Bundle bundle = new Bundle();
+
+        if(id == R.id.terlaris) {
+            fragment = new MenuBeranda();
+            bundle.putString("sort", "terlaris");
+            fragment.setArguments(bundle);
+        } else if(id == R.id.termurah) {
+            fragment = new MenuBeranda();
+            bundle.putString("sort", "termurah");
+            fragment.setArguments(bundle);
+        } else if(id == R.id.kurang75) {
+            fragment = new MenuBeranda();
+        } else if(id == R.id.kurang100) {
+            fragment = new MenuBeranda();
+        } else if(id == R.id.kurang150) {
+            fragment = new MenuBeranda();
+        }
+        callFragment(fragment);
+        return super.onOptionsItemSelected(item);
+    }
+    private void callFragment(Fragment fragment) {
+        fragmentManager = getFragmentManager();
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .commit();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
