@@ -28,8 +28,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class DetailPemesanan extends Fragment {
-    public DetailPemesanan() {
+public class PemesananDetail extends Fragment {
+    public PemesananDetail() {
 
     }
 
@@ -45,7 +45,7 @@ public class DetailPemesanan extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = (LinearLayout) inflater.inflate(R.layout.detail_pemesanan, container, false);
+        view = (LinearLayout) inflater.inflate(R.layout.pemesanan_detail, container, false);
         getActivity().setTitle("Detail Pemesanan");
         recyclerView = view.findViewById(R.id.main_list);
         recyclerView.setHasFixedSize(true);
@@ -142,7 +142,7 @@ public class DetailPemesanan extends Fragment {
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), "Pemesanan berhasil!", Toast.LENGTH_LONG).show();
 
-                            Fragment fragment = new MenuBeranda();
+                            Fragment fragment = new BerandaMenu();
                             AppCompatActivity activity = (AppCompatActivity) v.getContext();
 
                             activity.getSupportFragmentManager()

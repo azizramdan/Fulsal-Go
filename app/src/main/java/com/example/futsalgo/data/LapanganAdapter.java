@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.example.futsalgo.DetailLapangan;
+import com.example.futsalgo.LapanganDetail;
 import com.example.futsalgo.R;
 import com.example.futsalgo.data.model.Lapangan;
 import java.text.NumberFormat;
@@ -28,7 +28,7 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.lapangan_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.beranda_lapangan_item, parent, false);
         return new ViewHolder(v);
     }
 
@@ -55,7 +55,7 @@ public class LapanganAdapter extends RecyclerView.Adapter<LapanganAdapter.ViewHo
                 bundle.putString("bank", lapangan.getBank());
                 bundle.putString("nama_rekening", lapangan.getNamaRekening());
                 bundle.putString("no_rekening", lapangan.getNoRekening());
-                fragment = new DetailLapangan();
+                fragment = new LapanganDetail();
                 fragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 activity.getSupportFragmentManager()

@@ -18,7 +18,7 @@ public class WaktuPilihJamAdapter extends RecyclerView.Adapter<WaktuPilihJamAdap
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.jam_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.pemesanan_detail_jam_item, parent, false);
         return new ViewHolder(v);
     }
 

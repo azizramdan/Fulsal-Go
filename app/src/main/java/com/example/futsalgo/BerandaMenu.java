@@ -25,8 +25,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuBeranda extends Fragment {
-    public MenuBeranda(){}
+public class BerandaMenu extends Fragment {
+    public BerandaMenu(){}
     RelativeLayout view;
     private List<Lapangan> dataList;
     private RecyclerView recyclerView;
@@ -58,19 +58,19 @@ public class MenuBeranda extends Fragment {
         Bundle bundle = new Bundle();
 
         if(id == R.id.terlaris) {
-            fragment = new MenuBeranda();
+            fragment = new BerandaMenu();
             bundle.putString("sort", "terlaris");
             fragment.setArguments(bundle);
         } else if(id == R.id.termurah) {
-            fragment = new MenuBeranda();
+            fragment = new BerandaMenu();
             bundle.putString("sort", "termurah");
             fragment.setArguments(bundle);
         } else if(id == R.id.kurang75) {
-            fragment = new MenuBeranda();
+            fragment = new BerandaMenu();
         } else if(id == R.id.kurang100) {
-            fragment = new MenuBeranda();
+            fragment = new BerandaMenu();
         } else if(id == R.id.kurang150) {
-            fragment = new MenuBeranda();
+            fragment = new BerandaMenu();
         }
         callFragment(fragment);
         return super.onOptionsItemSelected(item);
@@ -87,7 +87,7 @@ public class MenuBeranda extends Fragment {
                              Bundle savedInstanceState) {
         getActivity().setTitle("Beranda");
 
-        view = (RelativeLayout) inflater.inflate(R.layout.menu_beranda, container, false);
+        view = (RelativeLayout) inflater.inflate(R.layout.beranda_menu, container, false);
         recyclerView = view.findViewById(R.id.main_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

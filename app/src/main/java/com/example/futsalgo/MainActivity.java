@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         email.setText(user.getString("email", "E-Mail"));
 
         if (savedInstanceState == null) {
-            fragment = new MenuBeranda();
+            fragment = new BerandaMenu();
             callFragment(fragment);
         }
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.beranda) {
-            fragment = new MenuBeranda();
+            fragment = new BerandaMenu();
         } else if (id == R.id.pesanan_saya) {
             fragment = new PesananSayaMenu();
         } else if (id == R.id.edit_akun) {

@@ -25,8 +25,8 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class DetailLapangan extends Fragment implements OnMapReadyCallback {
-    public DetailLapangan() {
+public class LapanganDetail extends Fragment implements OnMapReadyCallback {
+    public LapanganDetail() {
 
     }
     LinearLayout view;
@@ -39,7 +39,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = (LinearLayout) inflater.inflate(R.layout.detail_lapangan, container, false);
+        view = (LinearLayout) inflater.inflate(R.layout.lapangan_detail, container, false);
 
         ImageView foto = view.findViewById(R.id.foto);
         TextView nama = view.findViewById(R.id.nama);

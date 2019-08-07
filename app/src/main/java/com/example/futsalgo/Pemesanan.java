@@ -149,7 +149,7 @@ public class Pemesanan extends Fragment {
             bundle.putStringArrayList("waktu_pilih_jamDB", waktu_pilih_state);
             bundle.putStringArrayList("waktu_pilih_jam", waktu_pilih_text_state);
 
-            Fragment fragment = new DetailPemesanan();
+            Fragment fragment = new PemesananDetail();
             fragment.setArguments(bundle);
             AppCompatActivity activity = (AppCompatActivity) v.getContext();
             activity.getSupportFragmentManager()
