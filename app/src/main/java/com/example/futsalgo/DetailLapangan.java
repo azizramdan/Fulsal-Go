@@ -36,7 +36,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
     }
     LinearLayout view;
     Double latitude, longitude;
-    String title, harga_lapangan, bank, nama_rekening, no_rekening;
+    String title, harga_lapangan, bank, nama_rekening, no_rekening, no_hp;
     ScrollView nScrollView;
     Integer id_lapangan;
 
@@ -66,6 +66,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
 
         id_lapangan = bundle.getInt("id");
         title = bundle.getString("nama");
+        no_hp = bundle.getString("telp");
         harga_lapangan = bundle.getString("harga");
         bank = bundle.getString("bank");
         nama_rekening = bundle.getString("nama_rekening");
@@ -150,6 +151,7 @@ public class DetailLapangan extends Fragment implements OnMapReadyCallback {
                         Bundle bundle = new Bundle();
                         bundle.putInt("id_lapangan", id_lapangan);
                         bundle.putString("nama_lapangan", title);
+                        bundle.putString("no_hp", no_hp);
                         bundle.putString("harga_lapangan", harga_lapangan);
                         bundle.putString("waktu_pilih", date);
                         bundle.putString("bank", bank);

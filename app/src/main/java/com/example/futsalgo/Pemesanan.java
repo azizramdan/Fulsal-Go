@@ -39,7 +39,7 @@ public class Pemesanan extends Fragment {
 
     LinearLayout view;
 //    CheckBox jam7, jam8, jam9, jam10, jam11, jam12, jam13, jam14, jam15, jam16, jam17, jam18, jam19, jam20, jam21, jam22;
-    String nama_lapangan, waktu_pilih, metode_bayar, harga_lapangan, bank, nama_rekening, no_rekening;
+    String nama_lapangan, waktu_pilih, metode_bayar, harga_lapangan, bank, nama_rekening, no_rekening, no_hp;
     Integer id_lapangan, id_user;
     Spinner spinner;
     RecyclerView recyclerView;
@@ -63,6 +63,7 @@ public class Pemesanan extends Fragment {
         Bundle bundle = this.getArguments();
         id_lapangan = bundle.getInt("id_lapangan");
         nama_lapangan = bundle.getString("nama_lapangan");
+        no_hp = bundle.getString("no_hp");
         harga_lapangan = bundle.getString("harga_lapangan");
         waktu_pilih = bundle.getString("waktu_pilih");
         bank = bundle.getString("bank");
@@ -70,23 +71,6 @@ public class Pemesanan extends Fragment {
         no_rekening = bundle.getString("no_rekening");
         SharedPreferences user = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         id_user = user.getInt("id", 0);
-
-//        jam7 = view.findViewById(R.id.jam7);
-//        jam8 = view.findViewById(R.id.jam8);
-//        jam9 = view.findViewById(R.id.jam9);
-//        jam10 = view.findViewById(R.id.jam10);
-//        jam11 = view.findViewById(R.id.jam11);
-//        jam12 = view.findViewById(R.id.jam12);
-//        jam13 = view.findViewById(R.id.jam13);
-//        jam14 = view.findViewById(R.id.jam14);
-//        jam15 = view.findViewById(R.id.jam15);
-//        jam16 = view.findViewById(R.id.jam16);
-//        jam17 = view.findViewById(R.id.jam17);
-//        jam18 = view.findViewById(R.id.jam18);
-//        jam19 = view.findViewById(R.id.jam19);
-//        jam20 = view.findViewById(R.id.jam20);
-//        jam21 = view.findViewById(R.id.jam21);
-//        jam22 = view.findViewById(R.id.jam22);
 
         spinner = (Spinner) view.findViewById(R.id.metode_bayar);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -178,6 +162,7 @@ public class Pemesanan extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putInt("id_lapangan", id_lapangan);
             bundle.putString("nama_lapangan", nama_lapangan);
+            bundle.putString("no_hp", no_hp);
             bundle.putString("waktu_pilih_tanggal", waktu_pilih);
             bundle.putString("harga_lapangan", harga_lapangan);
             bundle.putString("metode_bayar", metode_bayar);
