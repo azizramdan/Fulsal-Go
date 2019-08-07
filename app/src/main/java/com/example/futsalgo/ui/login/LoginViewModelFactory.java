@@ -3,7 +3,6 @@ package com.example.futsalgo.ui.login;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-
 import com.example.futsalgo.data.LoginDataSource;
 import com.example.futsalgo.data.LoginRepository;
 

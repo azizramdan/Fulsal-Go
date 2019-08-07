@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Patterns;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -12,10 +11,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.futsalgo.Konfigurasi;
 import com.example.futsalgo.R;
 import com.example.futsalgo.data.LoginRepository;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
