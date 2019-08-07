@@ -34,6 +34,7 @@ public class MenuBeranda extends Fragment {
     RelativeLayout view;
     private List<Lapangan> dataList;
     private RecyclerView recyclerView;
+    String sort;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +46,10 @@ public class MenuBeranda extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataList = new ArrayList<>();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            sort = bundle.getString("sort", "");
+        }
 
         AndroidNetworking.initialize(getActivity());
 
@@ -53,10 +58,12 @@ public class MenuBeranda extends Fragment {
     }
 
     public void getLapangan() {
+        Log.d(TAG, "isi sort " + sort);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
         AndroidNetworking.get(Konfigurasi.LAPANGAN)
+                .addQueryParameter("sort", sort)
                 .setPriority(Priority.LOW)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {

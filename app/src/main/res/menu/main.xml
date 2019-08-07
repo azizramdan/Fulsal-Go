@@ -2,8 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/terlaris"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Terlaris"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/termurah"
+        android:orderInCategory="100"
+        android:title="Termurah"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/kurang75"
+        android:orderInCategory="100"
+        android:title="Harga dibawah 75rb"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/kurang100"
+        android:orderInCategory="100"
+        android:title="Harga dibawah 100rb"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/kurang150"
+        android:orderInCategory="100"
+        android:title="Harga dibawah 150rb"
         app:showAsAction="never" />
 </menu>
