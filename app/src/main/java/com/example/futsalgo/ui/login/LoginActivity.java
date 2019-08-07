@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.example.futsalgo.MainActivity;
 import com.example.futsalgo.R;
+import com.example.futsalgo.RegistrasiActivity;
 import com.example.futsalgo.ui.login.LoginViewModel;
 import com.example.futsalgo.ui.login.LoginViewModelFactory;
 
@@ -144,6 +145,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 //        loginButton.setEnabled(true);
+        TextView registrasi = findViewById(R.id.registrasi);
+        registrasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegistrasiActivity.class));
+                finish();
+            }
+        });
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
