@@ -74,7 +74,7 @@ public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
         tvtelp = view.findViewById(R.id.telp);
         tvketerangan = view.findViewById(R.id.keterangan);
 
-        if(metode_bayar.equals("COD")) {
+        if(metode_bayar.equals("cod")) {
             tvbank.setVisibility(View.GONE);
             tvnama_rekening.setVisibility(View.GONE);
             tvno_rekening.setVisibility(View.GONE);
