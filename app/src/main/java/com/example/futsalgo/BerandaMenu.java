@@ -108,6 +108,7 @@ public class BerandaMenu extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
         AndroidNetworking.get(Konfigurasi.LAPANGAN)
+                .addQueryParameter("method", "index")
                 .addQueryParameter("sort", sort)
                 .setPriority(Priority.LOW)
                 .build()
