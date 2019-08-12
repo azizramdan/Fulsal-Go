@@ -41,7 +41,9 @@ public class EditAkunMenu extends Fragment {
         AndroidNetworking.initialize(getActivity());
         SharedPreferences user = getActivity().getSharedPreferences("dataUser", Context.MODE_PRIVATE);
         id = user.getInt("id", 0);
-        edit();
+        etnama.setText(user.getString("nama", "nama"));
+        etemail.setText(user.getString("email", "email"));
+        ettelp.setText(user.getString("telp", "telp"));
 
         Button btnsimpan = view.findViewById(R.id.simpan);
         btnsimpan.setOnClickListener(new View.OnClickListener() {
@@ -61,39 +63,6 @@ public class EditAkunMenu extends Fragment {
         return view;
     }
 
-    private void edit() {
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-        AndroidNetworking.post(Konfigurasi.USER)
-                .addBodyParameter("method", "edit")
-                .addBodyParameter("id", id.toString())
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray data = response.getJSONArray("data");
-                            JSONObject dataUser = data.getJSONObject(0);
-
-                            etnama.setText(dataUser.getString("nama"));
-                            etemail.setText(dataUser.getString("email"));
-                            ettelp.setText(dataUser.getString("telp"));
-
-                            progressDialog.dismiss();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-                        }
-                    }
-                    @Override
-                    public void onError(ANError error) {
-                        progressDialog.dismiss();
-                    }
-                });
-    }
     private void simpan() {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
