@@ -54,7 +54,7 @@ public class PesananSayaMenu extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
         AndroidNetworking.get(Konfigurasi.PESANAN)
-                .addQueryParameter("method", "getClient")
+                .addQueryParameter("method", "index")
                 .addQueryParameter("id_user", id_user.toString())
                 .setPriority(Priority.LOW)
                 .build()
