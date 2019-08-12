@@ -99,10 +99,10 @@ public class Pemesanan extends Fragment {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        AndroidNetworking.post(Konfigurasi.PESANAN)
-                .addBodyParameter("method", "showTime")
-                .addBodyParameter("waktu_pilih", waktu_pilih)
-                .addBodyParameter("id_lapangan", id_lapangan.toString())
+        AndroidNetworking.get(Konfigurasi.PESANAN)
+                .addQueryParameter("method", "getTime")
+                .addQueryParameter("waktu_pilih", waktu_pilih)
+                .addQueryParameter("id_lapangan", id_lapangan.toString())
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
