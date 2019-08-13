@@ -1,9 +1,12 @@
 package com.example.futsalgo;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.bumptech.glide.Glide;
+import com.example.futsalgo.data.FasilitasAdapter;
+import com.example.futsalgo.data.LapanganAdapter;
+import com.example.futsalgo.data.model.Lapangan;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +32,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -34,6 +51,7 @@ public class LapanganDetail extends Fragment implements OnMapReadyCallback {
     String title, harga_lapangan, bank, nama_rekening, no_rekening, no_hp;
     ScrollView nScrollView;
     Integer id_lapangan;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,12 +59,18 @@ public class LapanganDetail extends Fragment implements OnMapReadyCallback {
 
         view = (LinearLayout) inflater.inflate(R.layout.lapangan_detail, container, false);
 
+        recyclerView = view.findViewById(R.id.main_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         ImageView foto = view.findViewById(R.id.foto);
         TextView nama = view.findViewById(R.id.nama);
         TextView harga = view.findViewById(R.id.harga);
         TextView telp = view.findViewById(R.id.telp);
         TextView alamat = view.findViewById(R.id.alamat);
         Button lanjut_pesan = view.findViewById(R.id.lanjut_pesan);
+
+        AndroidNetworking.initialize(getActivity());
 
         Bundle bundle = this.getArguments();
 
@@ -108,6 +132,7 @@ public class LapanganDetail extends Fragment implements OnMapReadyCallback {
         });
 
         getActivity().setTitle("Detail Lapangan");
+        getFasilitas();
 
         return view;
     }
@@ -117,6 +142,42 @@ public class LapanganDetail extends Fragment implements OnMapReadyCallback {
         googleMap.addMarker(new MarkerOptions().position(myloc)
                 .title(title));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 20));
+    }
+
+    private void getFasilitas() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        final ArrayList<String> dataList = new ArrayList<>();
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        AndroidNetworking.get(Konfigurasi.LAPANGAN)
+                .addQueryParameter("method", "fasilitas")
+                .addQueryParameter("id", id_lapangan.toString())
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray data = response.getJSONArray("data");
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject dataObj = data.getJSONObject(i);
+
+                                dataList.add(dataObj.getString("nama"));
+                            }
+                            FasilitasAdapter adapter = new FasilitasAdapter(dataList);
+                            recyclerView.setAdapter(adapter);
+                            progressDialog.dismiss();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        progressDialog.dismiss();
+                    }
+                });
     }
 
     public void lanjutPesan(View view) {
