@@ -39,7 +39,7 @@ public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
     String nama_lapangan, waktu_pilih_tanggal, waktu_pilih_jam, metode_bayar, status, harga, alamat, telp;
     Double  latitude, longitude;
     Integer id;
-    TextView tvnama_lapangan, tvharga, tvwaktu_pilih_tanggal, tvwaktu_pilih_jam, tvstatus, tvmetode_bayar, tvalamat, tvbank, tvnama_rekening, tvno_rekening, tvketerangan, tvtelp;
+    TextView tvid_pesanan, tvnama_lapangan, tvharga, tvwaktu_pilih_tanggal, tvwaktu_pilih_jam, tvstatus, tvmetode_bayar, tvalamat, tvbank, tvnama_rekening, tvno_rekening, tvketerangan, tvtelp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +61,7 @@ public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
         latitude = Double.parseDouble(bundle.getString("latitude"));
         longitude = Double.parseDouble(bundle.getString("longitude"));
 
+        tvid_pesanan = view.findViewById(R.id.id_pesanan);
         tvnama_lapangan = view.findViewById(R.id.nama_lapangan);
         tvharga = view.findViewById(R.id.harga);
         tvwaktu_pilih_tanggal = view.findViewById(R.id.waktu_pilih_tanggal);
@@ -79,18 +80,18 @@ public class PesananSayaDetail extends Fragment implements OnMapReadyCallback {
             tvnama_rekening.setVisibility(View.GONE);
             tvno_rekening.setVisibility(View.GONE);
             tvtelp.setVisibility(View.GONE);
-            tvketerangan.setText("Segera lakukan pembayaran ke lokasi sebelum jam main tiba, apabila sudah melewati jam main maka otomatis pesanan akan dibatalkan");
+            tvketerangan.setText("Segera lakukan pembayaran ke lokasi maksimal 2 jam setelah pemesanan, apabila sudah 2 jam maka otomatis pesanan akan dibatalkan");
         } else {
             tvbank.setText(bundle.getString("bank"));
             tvnama_rekening.setText("a.n. " + bundle.getString("nama_rekening"));
             tvno_rekening.setText(bundle.getString("no_rekening"));
-            tvketerangan.setText("Segera lakukan pembayaran melalui transfer, lalu kirimkan bukti transfer sebelum jam main tiba ke no dibawah");
+            tvketerangan.setText("Segera lakukan pembayaran melalui transfer, lalu kirimkan bukti transfer maksimal 2 jam setelah pemesanan ke no dibawah");
             tvtelp.setText(telp);
         }
 
         String harga_idr = NumberFormat.getCurrencyInstance(new Locale("id", "ID")).format(Double.parseDouble(harga));
-
-        tvnama_lapangan.setText(nama_lapangan);
+        tvid_pesanan.setText("ID pesanan " + id.toString());
+        tvnama_lapangan.setText("Nama lapangan: " + nama_lapangan);
         tvharga.setText("Harga: " + harga_idr);
         tvwaktu_pilih_tanggal.setText("Tanggal: " + waktu_pilih_tanggal);
         tvwaktu_pilih_jam.setText("Jam: " + waktu_pilih_jam);

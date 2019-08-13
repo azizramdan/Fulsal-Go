@@ -36,6 +36,7 @@ public class PesananSayaAdapter extends RecyclerView.Adapter<PesananSayaAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final PesananSaya pesanan_saya = list.get(position);
 
+        holder.textId.setText("ID pesanan " + pesanan_saya.getId().toString());
         holder.textNamaLapangan.setText(pesanan_saya.getNamaLapangan());
         holder.textWaktuPilihTanggal.setText(pesanan_saya.getWaktuPilihTanggal());
         holder.textWaktuPilihJam.setText(pesanan_saya.getWaktuPilihJam());
@@ -79,11 +80,12 @@ public class PesananSayaAdapter extends RecyclerView.Adapter<PesananSayaAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textNamaLapangan, textWaktuPilihTanggal, textWaktuPilihJam, textStatus, textHarga;
+        private TextView textId, textNamaLapangan, textWaktuPilihTanggal, textWaktuPilihJam, textStatus, textHarga;
         private CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            textId = itemView.findViewById(R.id.id_pesanan);
             textNamaLapangan = itemView.findViewById(R.id.nama_lapangan);
             textWaktuPilihTanggal = itemView.findViewById(R.id.waktu_pilih_tanggal);
             textWaktuPilihJam = itemView.findViewById(R.id.waktu_pilih_jam);

@@ -18,14 +18,20 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/nama_lapangan"
+                android:id="@+id/id_pesanan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nama Lapangan"
+                android:text="ID Pesanan"
                 android:gravity="center_horizontal"
                 android:layout_marginBottom="15dp"
                 android:textSize="30sp"/>
-
+            <TextView
+                android:id="@+id/nama_lapangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Nama Lapangan"
+                android:textSize="18sp" />
             <TextView
                 android:id="@+id/harga"
                 android:layout_width="match_parent"

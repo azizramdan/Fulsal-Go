@@ -15,12 +15,17 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/id_pesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID Pesanan"
+            android:textSize="18sp"/>
+
+        <TextView
             android:id="@+id/nama_lapangan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama Lapangan"
-            android:textSize="18sp"/>
-
+            android:text="Nama Lapangan"/>
 
         <TextView
             android:id="@+id/waktu_pilih_tanggal"
