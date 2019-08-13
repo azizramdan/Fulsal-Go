@@ -19,6 +19,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.futsalgo.data.LapanganAdapter;
 import com.example.futsalgo.data.model.Lapangan;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +29,12 @@ import java.util.List;
 public class BerandaMenu extends Fragment {
     public BerandaMenu(){}
     RelativeLayout view;
-    private List<Lapangan> dataList;
+    private List<Lapangan> dataList, lapanganKategori;
     private RecyclerView recyclerView;
     String sort;
     Fragment fragment = null;
     FragmentManager fragmentManager;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,18 +63,21 @@ public class BerandaMenu extends Fragment {
             fragment = new BerandaMenu();
             bundle.putString("sort", "terlaris");
             fragment.setArguments(bundle);
+            callFragment(fragment);
         } else if(id == R.id.termurah) {
             fragment = new BerandaMenu();
             bundle.putString("sort", "termurah");
             fragment.setArguments(bundle);
-        } else if(id == R.id.kurang75) {
-            fragment = new BerandaMenu();
-        } else if(id == R.id.kurang100) {
-            fragment = new BerandaMenu();
-        } else if(id == R.id.kurang150) {
-            fragment = new BerandaMenu();
+            callFragment(fragment);
         }
-        callFragment(fragment);
+
+        if(id == R.id.kurang75) {
+            lapanganKategori(75000);
+        } else if(id == R.id.kurang100) {
+            lapanganKategori(100000);
+        } else if(id == R.id.kurang150) {
+            lapanganKategori(150000);
+        }
         return super.onOptionsItemSelected(item);
     }
     private void callFragment(Fragment fragment) {
@@ -92,20 +97,20 @@ public class BerandaMenu extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         dataList = new ArrayList<>();
+        lapanganKategori = new ArrayList<>();
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             sort = bundle.getString("sort", "");
         }
 
         AndroidNetworking.initialize(getActivity());
-
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading...");
         getLapangan();
         return view;
     }
 
     public void getLapangan() {
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading...");
         progressDialog.show();
         AndroidNetworking.get(Konfigurasi.LAPANGAN)
                 .addQueryParameter("method", "index")
@@ -119,7 +124,6 @@ public class BerandaMenu extends Fragment {
                             JSONArray data = response.getJSONArray("data");
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject dataLapangan = data.getJSONObject(i);
-
                                 dataList.add(new Lapangan(
                                         dataLapangan.getInt("id"),
                                         dataLapangan.getString("nama"),
@@ -148,6 +152,37 @@ public class BerandaMenu extends Fragment {
                         progressDialog.dismiss();
                     }
                 });
+    }
+
+    private void lapanganKategori(Integer kategori) {
+        progressDialog.show();
+        lapanganKategori.clear();
+        for (int i = 0; i < dataList.size(); i++) {
+            int harga;
+            try {
+                harga = Integer.parseInt(dataList.get(i).getHarga());
+                if(harga <= kategori) {
+                    lapanganKategori.add(new Lapangan(
+                        dataList.get(i).getId(),
+                        dataList.get(i).getNama(),
+                        dataList.get(i).getHarga(),
+                        dataList.get(i).getFoto(),
+                        dataList.get(i).getTelp(),
+                        dataList.get(i).getAlamat(),
+                        dataList.get(i).getLatitude(),
+                        dataList.get(i).getLongitude(),
+                        dataList.get(i).getBank(),
+                        dataList.get(i).getNamaRekening(),
+                        dataList.get(i).getNoRekening()
+                    ));
+                }
+            } catch (NumberFormatException nfe) {
+
+            }
+        }
+        LapanganAdapter adapter = new LapanganAdapter(lapanganKategori);
+        recyclerView.setAdapter(adapter);
+        progressDialog.dismiss();
     }
 
 }
